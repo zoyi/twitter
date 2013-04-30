@@ -1,6 +1,6 @@
 require 'faraday'
 
-module Twitter
+module TwitterAPI
   module Request
     class MultipartWithFile < Faraday::Middleware
       CONTENT_TYPE = 'Content-Type'

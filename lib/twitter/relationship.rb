@@ -1,30 +1,30 @@
 require 'twitter/base'
 
-module Twitter
-  class Relationship < Twitter::Base
+module TwitterAPI
+  class Relationship < TwitterAPI::Base
 
     # Initializes a new object
     #
     # @param attrs [Hash]
-    # @return [Twitter::Relationship]
+    # @return [TwitterAPI::Relationship]
     def initialize(attrs={})
       @attrs = attrs[:relationship]
     end
 
-    # @return [Twitter::SourceUser]
+    # @return [TwitterAPI::SourceUser]
     def source
-      @source ||= Twitter::SourceUser.fetch_or_new(@attrs[:source])
+      @source ||= TwitterAPI::SourceUser.fetch_or_new(@attrs[:source])
     end
 
-    # @return [Twitter::TargetUser]
+    # @return [TwitterAPI::TargetUser]
     def target
-      @target ||= Twitter::TargetUser.fetch_or_new(@attrs[:target])
+      @target ||= TwitterAPI::TargetUser.fetch_or_new(@attrs[:target])
     end
 
     # Update the attributes of a Relationship
     #
     # @param attrs [Hash]
-    # @return [Twitter::Relationship]
+    # @return [TwitterAPI::Relationship]
     def update(attrs)
       @attrs.update(attrs[:relationship]) unless attrs[:relationship].nil?
       self

@@ -1,9 +1,9 @@
 require 'helper'
 
-describe Twitter::API::SavedSearches do
+describe TwitterAPI::API::SavedSearches do
 
   before do
-    @client = Twitter::Client.new
+    @client = TwitterAPI::Client.new
   end
 
   describe "#saved_searches" do
@@ -18,7 +18,7 @@ describe Twitter::API::SavedSearches do
       it "returns an array of saved searches" do
         saved_searches = @client.saved_searches(16129012)
         expect(saved_searches).to be_an Array
-        expect(saved_searches.first).to be_a Twitter::SavedSearch
+        expect(saved_searches.first).to be_a TwitterAPI::SavedSearch
         expect(saved_searches.first.name).to eq "twitter"
       end
     end
@@ -33,7 +33,7 @@ describe Twitter::API::SavedSearches do
       it "returns the authenticated user's saved search queries" do
         saved_searches = @client.saved_searches
         expect(saved_searches).to be_an Array
-        expect(saved_searches.first).to be_a Twitter::SavedSearch
+        expect(saved_searches.first).to be_a TwitterAPI::SavedSearch
         expect(saved_searches.first.name).to eq "twitter"
       end
     end
@@ -49,7 +49,7 @@ describe Twitter::API::SavedSearches do
     end
     it "returns a saved search" do
       saved_search = @client.saved_search(16129012)
-      expect(saved_search).to be_a Twitter::SavedSearch
+      expect(saved_search).to be_a TwitterAPI::SavedSearch
       expect(saved_search.name).to eq "twitter"
     end
   end
@@ -64,7 +64,7 @@ describe Twitter::API::SavedSearches do
     end
     it "returns the created saved search" do
       saved_search = @client.saved_search_create("twitter")
-      expect(saved_search).to be_a Twitter::SavedSearch
+      expect(saved_search).to be_a TwitterAPI::SavedSearch
       expect(saved_search.name).to eq "twitter"
     end
   end
@@ -80,7 +80,7 @@ describe Twitter::API::SavedSearches do
     it "returns an array of deleted saved searches" do
       saved_searches = @client.saved_search_destroy(16129012)
       expect(saved_searches).to be_an Array
-      expect(saved_searches.first).to be_a Twitter::SavedSearch
+      expect(saved_searches.first).to be_a TwitterAPI::SavedSearch
       expect(saved_searches.first.name).to eq "twitter"
     end
   end

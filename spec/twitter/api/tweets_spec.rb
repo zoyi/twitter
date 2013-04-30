@@ -1,9 +1,9 @@
 require 'helper'
 
-describe Twitter::API::Tweets do
+describe TwitterAPI::API::Tweets do
 
   before do
-    @client = Twitter::Client.new
+    @client = TwitterAPI::Client.new
   end
 
   describe "#retweets" do
@@ -17,7 +17,7 @@ describe Twitter::API::Tweets do
     it "returns up to 100 of the first retweets of a given tweet" do
       tweets = @client.retweets(28561922516)
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a TwitterAPI::Tweet
       expect(tweets.first.text).to eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
     end
   end
@@ -48,7 +48,7 @@ describe Twitter::API::Tweets do
       it "returns an array of user of retweeters of a Tweet" do
         users = @client.retweeters_of(28561922516)
         expect(users).to be_an Array
-        expect(users.first).to be_a Twitter::User
+        expect(users.first).to be_a TwitterAPI::User
         expect(users.first.id).to eq 7505382
       end
     end
@@ -64,7 +64,7 @@ describe Twitter::API::Tweets do
     end
     it "returns a Tweet" do
       tweet = @client.status(25938088801)
-      expect(tweet).to be_a Twitter::Tweet
+      expect(tweet).to be_a TwitterAPI::Tweet
       expect(tweet.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
   end
@@ -80,7 +80,7 @@ describe Twitter::API::Tweets do
     it "returns an array of Tweets" do
       tweets = @client.statuses(25938088801)
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a TwitterAPI::Tweet
       expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
   end
@@ -96,7 +96,7 @@ describe Twitter::API::Tweets do
     it "returns an array of Tweets" do
       tweets = @client.status_destroy(25938088801)
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a TwitterAPI::Tweet
       expect(tweets.first.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
   end
@@ -111,7 +111,7 @@ describe Twitter::API::Tweets do
     end
     it "returns a Tweet" do
       tweet = @client.update("The problem with your code is that it's doing exactly what you told it to do.")
-      expect(tweet).to be_a Twitter::Tweet
+      expect(tweet).to be_a TwitterAPI::Tweet
       expect(tweet.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
     end
   end
@@ -127,7 +127,7 @@ describe Twitter::API::Tweets do
     it "returns an array of Tweets with retweet details embedded" do
       tweets = @client.retweet(28561922516)
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a TwitterAPI::Tweet
       expect(tweets.first.text).to eq "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
       expect(tweets.first.retweeted_tweet.text).to eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
       expect(tweets.first.retweeted_tweet.id).not_to eq tweets.first.id
@@ -153,7 +153,7 @@ describe Twitter::API::Tweets do
     it "returns an array of Tweets with retweet details embedded" do
       tweets = @client.retweet!(28561922516)
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a TwitterAPI::Tweet
       expect(tweets.first.text).to eq "As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
       expect(tweets.first.retweeted_tweet.text).to eq "RT @gruber: As for the Series, I'm for the Giants. Fuck Texas, fuck Nolan Ryan, fuck George Bush."
       expect(tweets.first.retweeted_tweet.id).not_to eq tweets.first.id
@@ -163,7 +163,7 @@ describe Twitter::API::Tweets do
         stub_post("/1.1/statuses/retweet/28561922516.json").to_return(:status => 403, :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "raises a Forbidden error" do
-        expect{@client.retweet!(28561922516)}.to raise_error Twitter::Error::Forbidden
+        expect{@client.retweet!(28561922516)}.to raise_error TwitterAPI::Error::Forbidden
       end
     end
     context "already retweeted" do
@@ -171,7 +171,7 @@ describe Twitter::API::Tweets do
         stub_post("/1.1/statuses/retweet/28561922516.json").to_return(:status => 403, :body => fixture("already_retweeted.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "raises an AlreadyRetweeted error" do
-        expect{@client.retweet!(28561922516)}.to raise_error Twitter::Error::AlreadyRetweeted
+        expect{@client.retweet!(28561922516)}.to raise_error TwitterAPI::Error::AlreadyRetweeted
       end
     end
   end
@@ -187,7 +187,7 @@ describe Twitter::API::Tweets do
       end
       it "returns a Tweet" do
         tweet = @client.update_with_media("The problem with your code is that it's doing exactly what you told it to do.", fixture("pbjt.gif"))
-        expect(tweet).to be_a Twitter::Tweet
+        expect(tweet).to be_a TwitterAPI::Tweet
         expect(tweet.text).to eq "The problem with your code is that it's doing exactly what you told it to do."
       end
     end
@@ -232,7 +232,7 @@ describe Twitter::API::Tweets do
     end
     it "returns an array of OEmbed instances" do
       oembed = @client.oembed(25938088801)
-      expect(oembed).to be_a Twitter::OEmbed
+      expect(oembed).to be_a TwitterAPI::OEmbed
     end
   end
 
@@ -252,7 +252,7 @@ describe Twitter::API::Tweets do
     it "returns an array of OEmbed instances" do
       oembeds = @client.oembeds(25938088801)
       expect(oembeds).to be_an Array
-      expect(oembeds.first).to be_a Twitter::OEmbed
+      expect(oembeds.first).to be_a TwitterAPI::OEmbed
     end
   end
 

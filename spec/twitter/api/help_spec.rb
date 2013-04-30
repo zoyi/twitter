@@ -1,9 +1,9 @@
 require 'helper'
 
-describe Twitter::API::Help do
+describe TwitterAPI::API::Help do
 
   before do
-    @client = Twitter::Client.new
+    @client = TwitterAPI::Client.new
   end
 
   describe "#configuration" do
@@ -16,7 +16,7 @@ describe Twitter::API::Help do
     end
     it "returns Twitter's current configuration" do
       configuration = @client.configuration
-      expect(configuration).to be_a Twitter::Configuration
+      expect(configuration).to be_a TwitterAPI::Configuration
       expect(configuration.characters_reserved_per_media).to eq 20
     end
   end
@@ -32,7 +32,7 @@ describe Twitter::API::Help do
     it "returns the list of languages supported by Twitter" do
       languages = @client.languages
       expect(languages).to be_an Array
-      expect(languages.first).to be_a Twitter::Language
+      expect(languages.first).to be_a TwitterAPI::Language
       expect(languages.first.name).to eq "Portuguese"
     end
   end

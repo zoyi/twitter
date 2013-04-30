@@ -2,11 +2,11 @@ require 'twitter/basic_user'
 require 'twitter/creatable'
 require 'twitter/exceptable'
 
-module Twitter
-  class User < Twitter::BasicUser
+module TwitterAPI
+  class User < TwitterAPI::BasicUser
     PROFILE_IMAGE_SUFFIX_REGEX = /_normal(\.gif|\.jpe?g|\.png)$/
-    include Twitter::Creatable
-    include Twitter::Exceptable
+    include TwitterAPI::Creatable
+    include TwitterAPI::Exceptable
     attr_reader :connections, :contributors_enabled, :default_profile,
       :default_profile_image, :description, :favourites_count,
       :follow_request_sent, :followers_count, :friends_count, :geo_enabled,
@@ -32,10 +32,10 @@ module Twitter
     alias update_count statuses_count
     alias updates_count statuses_count
 
-    # @return [Array<Twitter::Entity::Url>]
+    # @return [Array<TwitterAPI::Entity::Url>]
     def description_urls
       @description_urls ||= Array(@attrs[:entities][:description][:urls]).map do |entity|
-        Twitter::Entity::Url.fetch_or_new(entity)
+        TwitterAPI::Entity::Url.fetch_or_new(entity)
       end
     end
 
@@ -87,9 +87,9 @@ module Twitter
     end
     alias profile_image_url_https? profile_image_url?
 
-    # @return [Twitter::Tweet]
+    # @return [TwitterAPI::Tweet]
     def status
-      @status ||= fetch_or_new_without_self(Twitter::Tweet, @attrs, :status, :user)
+      @status ||= fetch_or_new_without_self(TwitterAPI::Tweet, @attrs, :status, :user)
     end
 
     def status?

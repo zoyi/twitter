@@ -1,7 +1,7 @@
 require 'twitter/base'
 
-module Twitter
-  class Entity < Twitter::Base
+module TwitterAPI
+  class Entity < TwitterAPI::Base
     attr_reader :indices
   end
 end

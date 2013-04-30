@@ -1,12 +1,12 @@
 require 'twitter/base'
 
-module Twitter
-  class SearchResults < Twitter::Base
+module TwitterAPI
+  class SearchResults < TwitterAPI::Base
 
-    # @return [Array<Twitter::Tweet>]
+    # @return [Array<TwitterAPI::Tweet>]
     def statuses
       @results ||= Array(@attrs[:statuses]).map do |tweet|
-        Twitter::Tweet.fetch_or_new(tweet)
+        TwitterAPI::Tweet.fetch_or_new(tweet)
       end
     end
     alias collection statuses

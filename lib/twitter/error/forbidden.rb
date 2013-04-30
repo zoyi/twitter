@@ -1,9 +1,9 @@
 require 'twitter/error/client_error'
 
-module Twitter
+module TwitterAPI
   class Error
     # Raised when Twitter returns the HTTP status code 403
-    class Forbidden < Twitter::Error::ClientError
+    class Forbidden < TwitterAPI::Error::ClientError
       HTTP_STATUS_CODE = 403
     end
   end

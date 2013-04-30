@@ -139,15 +139,15 @@ end
 ```
 
 Then, for each user's access token/secret pair, instantiate a
-`Twitter::Client`:
+`TwitterAPI::Client`:
 
 ```ruby
-erik = Twitter::Client.new(
+erik = TwitterAPI::Client.new(
   :oauth_token => "Erik's access token",
   :oauth_token_secret => "Erik's access secret"
 )
 
-john = Twitter::Client.new(
+john = TwitterAPI::Client.new(
   :oauth_token => "John's access token",
   :oauth_token_secret => "John's access secret"
 )
@@ -161,10 +161,10 @@ Thread.new{john.update("Tweeting as John!")}
 ```
 
 Or, if you prefer, you can specify all configuration options when instantiating
-a `Twitter::Client`:
+a `TwitterAPI::Client`:
 
 ```ruby
-client = Twitter::Client.new(
+client = TwitterAPI::Client.new(
   :consumer_key => "an application's consumer key",
   :consumer_secret => "an application's consumer secret",
   :oauth_token => "a user's access token",
@@ -179,7 +179,7 @@ The Faraday middleware stack is fully configurable and is exposed as a
 `Faraday::Builder` object. You can modify the default middleware in-place:
 
 ```ruby
-Twitter.middleware.insert_after Twitter::Response::RaiseError, CustomMiddleware
+Twitter.middleware.insert_after TwitterAPI::Response::RaiseError, CustomMiddleware
 ```
 
 A custom adapter may be set as part of a custom middleware stack:
@@ -358,7 +358,7 @@ Despite the removal of certain underlying functionality in Twitter API v1.1,
 this library aims to preserve backward-compatibility wherever possible. For
 example, despite the removal of the [`GET
 statuses/retweeted_by_user`][retweeted_by_user] resource, the
-`Twitter::API#retweeted_by_user` method continues to exist, implemented by
+`TwitterAPI::API#retweeted_by_user` method continues to exist, implemented by
 making multiple requests to the [`GET statuses/user_timeline`][user_timeline]
 resource. As a result, there is no longer a one-to-one correlation between
 method calls and Twitter API requests. In fact, it's possible for a single
@@ -372,12 +372,12 @@ discussion][discussion].
 
 #### Rate Limiting
 Another consequence of Twitter API v1.1 is that the
-`Twitter::Client#rate_limit` method has been removed, since the concept of a
+`TwitterAPI::Client#rate_limit` method has been removed, since the concept of a
 client-wide rate limit no longer exists. Rate limits are now applied on a
 per-resource level, however, since there is no longer a one-to-one mapping
 between methods and Twitter API resources, it's not entirely obvious how rate
 limit information should be exposed. I've decided to go back to the pre-3.0.0
-behavior of including rate limit information on `Twitter::Error` objects.
+behavior of including rate limit information on `TwitterAPI::Error` objects.
 Here's an example of how to handle rate limits:
 
 ```ruby
@@ -386,7 +386,7 @@ num_attempts = 0
 begin
   num_attempts += 1
   retweets = Twitter.retweeted_by_user("sferik")
-rescue Twitter::Error::TooManyRequests => error
+rescue TwitterAPI::Error::TooManyRequests => error
   if num_attempts <= MAX_ATTEMPTS
     # NOTE: Your process could go to sleep for up to 15 minutes but if you
     # retry any sooner, it will almost certainly fail with the same exception.
@@ -401,41 +401,41 @@ end
 As a consequence of moving to Twitter API v1.1, the following methods from
 version 3 are no longer available in version 4:
 
-* `Twitter::API#accept`
-* `Twitter::API#deny`
-* `Twitter::API#disable_notifications`
-* `Twitter::API#enable_notifications`
-* `Twitter::API#end_session`
-* `Twitter::API#rate_limit_status`
-* `Twitter::API#rate_limited?`
-* `Twitter::API#recommendations`
-* `Twitter::API#related_results`
-* `Twitter::API#retweeted_to_user`
-* `Twitter::API#trends_daily`
-* `Twitter::API#trends_weekly`
-* `Twitter::Client#rate_limit`
-* `Twitter::RateLimit#class`
+* `TwitterAPI::API#accept`
+* `TwitterAPI::API#deny`
+* `TwitterAPI::API#disable_notifications`
+* `TwitterAPI::API#enable_notifications`
+* `TwitterAPI::API#end_session`
+* `TwitterAPI::API#rate_limit_status`
+* `TwitterAPI::API#rate_limited?`
+* `TwitterAPI::API#recommendations`
+* `TwitterAPI::API#related_results`
+* `TwitterAPI::API#retweeted_to_user`
+* `TwitterAPI::API#trends_daily`
+* `TwitterAPI::API#trends_weekly`
+* `TwitterAPI::Client#rate_limit`
+* `TwitterAPI::RateLimit#class`
 
 #### Custom Endpoints
-The `Twitter::API#update_with_media` method no longer uses the custom
+The `TwitterAPI::API#update_with_media` method no longer uses the custom
 `upload.twitter.com` endpoint, so `media_endpoint` configuration has been
-removed. Likewise, the `Twitter::API#search` method no longer uses the custom
+removed. Likewise, the `TwitterAPI::API#search` method no longer uses the custom
 `search.twitter.com` endpoint, so `search_endpoint` configuration has also been
 removed.
 
 #### Errors
 It's worth mentioning new error classes:
 
-* `Twitter::Error::GatewayTimeout`
-* `Twitter::Error::TooManyRequests`
-* `Twitter::Error::UnprocessableEntity`
+* `TwitterAPI::Error::GatewayTimeout`
+* `TwitterAPI::Error::TooManyRequests`
+* `TwitterAPI::Error::UnprocessableEntity`
 
 In previous versions of this library, rate limit errors were indicated by
-raising either `Twitter::Error::BadRequest` or
-`Twitter::Error::EnhanceYourCalm` (for the Search API). As of version 4, the
-library will raise `Twitter::Error::TooManyRequests` for all rate limit errors.
-The `Twitter::Error::EnhanceYourCalm` class has been aliased to
-`Twitter::Error::TooManyRequests`.
+raising either `TwitterAPI::Error::BadRequest` or
+`TwitterAPI::Error::EnhanceYourCalm` (for the Search API). As of version 4, the
+library will raise `TwitterAPI::Error::TooManyRequests` for all rate limit errors.
+The `TwitterAPI::Error::EnhanceYourCalm` class has been aliased to
+`TwitterAPI::Error::TooManyRequests`.
 
 #### Identity Map
 In version 4, the identity map is [disabled by default][disabled]. If you want
@@ -443,7 +443,7 @@ to enable this feature, you can use the [default identity map][default] or
 [write a custom identity map][custom].
 
 ```ruby
-Twitter.identity_map = Twitter::IdentityMap
+Twitter.identity_map = TwitterAPI::IdentityMap
 ```
 
 [disabled]: https://github.com/sferik/twitter/commit/c6c5960bea998abdc3e82cbb8dd68766a2df52e1

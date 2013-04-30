@@ -1,20 +1,20 @@
 require 'twitter/creatable'
 require 'twitter/identity'
 
-module Twitter
-  class DirectMessage < Twitter::Identity
-    include Twitter::Creatable
+module TwitterAPI
+  class DirectMessage < TwitterAPI::Identity
+    include TwitterAPI::Creatable
     attr_reader :text
     alias full_text text
 
-    # @return [Twitter::User]
+    # @return [TwitterAPI::User]
     def recipient
-      @recipient ||= Twitter::User.fetch_or_new(@attrs[:recipient])
+      @recipient ||= TwitterAPI::User.fetch_or_new(@attrs[:recipient])
     end
 
-    # @return [Twitter::User]
+    # @return [TwitterAPI::User]
     def sender
-      @sender ||= Twitter::User.fetch_or_new(@attrs[:sender])
+      @sender ||= TwitterAPI::User.fetch_or_new(@attrs[:sender])
     end
 
   end

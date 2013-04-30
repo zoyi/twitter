@@ -3,11 +3,11 @@ require 'twitter/creatable'
 require 'twitter/exceptable'
 require 'twitter/identity'
 
-module Twitter
-  class Tweet < Twitter::Identity
+module TwitterAPI
+  class Tweet < TwitterAPI::Identity
     extend Forwardable
-    include Twitter::Creatable
-    include Twitter::Exceptable
+    include TwitterAPI::Creatable
+    include TwitterAPI::Exceptable
     attr_reader :favorited, :favoriters, :from_user_id, :from_user_name,
       :in_reply_to_screen_name, :in_reply_to_attrs_id, :in_reply_to_status_id,
       :in_reply_to_user_id, :lang, :repliers, :retweeted, :retweeters, :source,
@@ -54,31 +54,31 @@ module Twitter
       end
     end
 
-    # @return [Twitter::Geo]
+    # @return [TwitterAPI::Geo]
     def geo
-      @geo ||= Twitter::GeoFactory.fetch_or_new(@attrs[:geo])
+      @geo ||= TwitterAPI::GeoFactory.fetch_or_new(@attrs[:geo])
     end
 
     # @note Must include entities in your request for this method to work
-    # @return [Array<Twitter::Entity::Hashtag>]
+    # @return [Array<TwitterAPI::Entity::Hashtag>]
     def hashtags
-      @hashtags ||= entities(Twitter::Entity::Hashtag, :hashtags)
+      @hashtags ||= entities(TwitterAPI::Entity::Hashtag, :hashtags)
     end
 
     # @note Must include entities in your request for this method to work
-    # @return [Array<Twitter::Media>]
+    # @return [Array<TwitterAPI::Media>]
     def media
-      @media ||= entities(Twitter::MediaFactory, :media)
+      @media ||= entities(TwitterAPI::MediaFactory, :media)
     end
 
-    # @return [Twitter::Metadata]
+    # @return [TwitterAPI::Metadata]
     def metadata
-      @metadata ||= Twitter::Metadata.fetch_or_new(@attrs[:metadata])
+      @metadata ||= TwitterAPI::Metadata.fetch_or_new(@attrs[:metadata])
     end
 
-    # @return [Twitter::Place]
+    # @return [TwitterAPI::Place]
     def place
-      @place ||= Twitter::Place.fetch_or_new(@attrs[:place])
+      @place ||= TwitterAPI::Place.fetch_or_new(@attrs[:place])
     end
 
     # @return [Integer]
@@ -100,7 +100,7 @@ module Twitter
 
     # If this Tweet is a retweet, the original Tweet is available here.
     #
-    # @return [Twitter::Tweet]
+    # @return [TwitterAPI::Tweet]
     def retweeted_status
       @retweeted_status ||= self.class.fetch_or_new(@attrs[:retweeted_status])
     end
@@ -115,20 +115,20 @@ module Twitter
     alias retweet_count retweeters_count
 
     # @note Must include entities in your request for this method to work
-    # @return [Array<Twitter::Entity::Url>]
+    # @return [Array<TwitterAPI::Entity::Url>]
     def urls
-      @urls ||= entities(Twitter::Entity::Url, :urls)
+      @urls ||= entities(TwitterAPI::Entity::Url, :urls)
     end
 
-    # @return [Twitter::User]
+    # @return [TwitterAPI::User]
     def user
-      @user ||= fetch_or_new_without_self(Twitter::User, @attrs, :user, :status)
+      @user ||= fetch_or_new_without_self(TwitterAPI::User, @attrs, :user, :status)
     end
 
     # @note Must include entities in your request for this method to work
-    # @return [Array<Twitter::Entity::UserMention>]
+    # @return [Array<TwitterAPI::Entity::UserMention>]
     def user_mentions
-      @user_mentions ||= entities(Twitter::Entity::UserMention, :user_mentions)
+      @user_mentions ||= entities(TwitterAPI::Entity::UserMention, :user_mentions)
     end
 
     def user?

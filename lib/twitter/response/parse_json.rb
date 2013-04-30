@@ -1,7 +1,7 @@
 require 'faraday'
 require 'multi_json'
 
-module Twitter
+module TwitterAPI
   module Response
     class ParseJson < Faraday::Response::Middleware
 

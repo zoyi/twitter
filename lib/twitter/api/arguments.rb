@@ -1,4 +1,4 @@
-module Twitter
+module TwitterAPI
   module API
     class Arguments < Array
       attr_reader :options

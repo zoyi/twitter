@@ -2,10 +2,10 @@ require 'twitter/api/utils'
 require 'twitter/tweet'
 require 'twitter/user'
 
-module Twitter
+module TwitterAPI
   module API
     module Timelines
-      include Twitter::API::Utils
+      include TwitterAPI::API::Utils
       DEFAULT_TWEETS_PER_REQUEST = 20
       MAX_TWEETS_PER_REQUEST = 200
 
@@ -15,8 +15,8 @@ module Twitter
       # @note This method can only return up to 800 Tweets.
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Tweet>]
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<TwitterAPI::Tweet>]
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -25,7 +25,7 @@ module Twitter
       # @example Return the 20 most recent mentions (statuses containing @username) for the authenticating user
       #   Twitter.mentions
       def mentions_timeline(options={})
-        objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/mentions_timeline.json", options)
+        objects_from_response(TwitterAPI::Tweet, :get, "/1.1/statuses/mentions_timeline.json", options)
       end
       alias mentions mentions_timeline
 
@@ -35,10 +35,10 @@ module Twitter
       # @note This method can only return up to 3,200 Tweets.
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Tweet>]
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<TwitterAPI::Tweet>]
       # @overload user_timeline(user, options={})
-      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -50,7 +50,7 @@ module Twitter
       #   @example Return the 20 most recent Tweets posted by @sferik
       #     Twitter.user_timeline('sferik')
       def user_timeline(*args)
-        objects_from_response_with_user(Twitter::Tweet, :get, "/1.1/statuses/user_timeline.json", args)
+        objects_from_response_with_user(TwitterAPI::Tweet, :get, "/1.1/statuses/user_timeline.json", args)
       end
 
       # Returns the 20 most recent retweets posted by the specified user
@@ -59,9 +59,9 @@ module Twitter
       # @note This method can only return up to 3,200 Tweets.
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Tweet>]
-      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<TwitterAPI::Tweet>]
+      # @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -84,8 +84,8 @@ module Twitter
       # @note This method can only return up to 3,200 Tweets.
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Tweet>]
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<TwitterAPI::Tweet>]
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -107,8 +107,8 @@ module Twitter
       # @note This method can only return up to 800 Tweets, including retweets.
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Tweet>]
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<TwitterAPI::Tweet>]
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -121,7 +121,7 @@ module Twitter
       # @example Return the 20 most recent Tweets, including retweets if they exist, posted by the authenticating user and the users they follow
       #   Twitter.home_timeline
       def home_timeline(options={})
-        objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/home_timeline.json", options)
+        objects_from_response(TwitterAPI::Tweet, :get, "/1.1/statuses/home_timeline.json", options)
       end
 
       # Returns the 20 most recent retweets posted by users the authenticating user follow.
@@ -130,8 +130,8 @@ module Twitter
       # @note This method can only return up to 800 Tweets, including retweets.
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Tweet>]
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<TwitterAPI::Tweet>]
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       # @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
@@ -153,8 +153,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/statuses/retweets_of_me
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::Tweet>]
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<TwitterAPI::Tweet>]
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 200.
       # @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
@@ -165,7 +165,7 @@ module Twitter
       # @example Return the 20 most recent tweets of the authenticated user that have been retweeted by others
       #   Twitter.retweets_of_me
       def retweets_of_me(options={})
-        objects_from_response(Twitter::Tweet, :get, "/1.1/statuses/retweets_of_me.json", options)
+        objects_from_response(TwitterAPI::Tweet, :get, "/1.1/statuses/retweets_of_me.json", options)
       end
 
     private

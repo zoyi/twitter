@@ -1,9 +1,9 @@
 require 'twitter/error/forbidden'
 
-module Twitter
+module TwitterAPI
   class Error
     # Raised when a Tweet has already been favorited
-    class AlreadyFavorited < Twitter::Error
+    class AlreadyFavorited < TwitterAPI::Error
       MESSAGE = "You have already favorited this status"
     end
   end

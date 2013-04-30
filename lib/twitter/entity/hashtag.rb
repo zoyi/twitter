@@ -1,8 +1,8 @@
 require 'twitter/entity'
 
-module Twitter
+module TwitterAPI
   class Entity
-    class Hashtag < Twitter::Entity
+    class Hashtag < TwitterAPI::Entity
       attr_reader :text
     end
   end

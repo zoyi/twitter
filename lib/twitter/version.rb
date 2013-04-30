@@ -1,9 +1,9 @@
-module Twitter
+module TwitterAPI
   class Version
-    MAJOR = 4 unless defined? Twitter::Version::MAJOR
-    MINOR = 6 unless defined? Twitter::Version::MINOR
-    PATCH = 0 unless defined? Twitter::Version::PATCH
-    PRE = nil unless defined? Twitter::Version::PRE
+    MAJOR = 4 unless defined? TwitterAPI::Version::MAJOR
+    MINOR = 6 unless defined? TwitterAPI::Version::MINOR
+    PATCH = 0 unless defined? TwitterAPI::Version::PATCH
+    PRE = nil unless defined? TwitterAPI::Version::PRE
 
     class << self
 

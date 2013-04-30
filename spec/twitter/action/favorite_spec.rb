@@ -1,27 +1,27 @@
 require 'helper'
 
-describe Twitter::Action::Favorite do
+describe TwitterAPI::Action::Favorite do
 
   describe "#sources" do
     it "returns a collection of users who favorited a Tweet" do
-      sources = Twitter::Action::Favorite.new(:sources => [{:id => 7505382}]).sources
+      sources = TwitterAPI::Action::Favorite.new(:sources => [{:id => 7505382}]).sources
       expect(sources).to be_an Array
-      expect(sources.first).to be_a Twitter::User
+      expect(sources.first).to be_a TwitterAPI::User
     end
     it "is empty when not set" do
-      sources = Twitter::Action::Favorite.new.sources
+      sources = TwitterAPI::Action::Favorite.new.sources
       expect(sources).to be_empty
     end
   end
 
   describe "#targets" do
     it "returns a collection containing the favorited Tweet" do
-      targets = Twitter::Action::Favorite.new(:targets => [{:id => 25938088801}]).targets
+      targets = TwitterAPI::Action::Favorite.new(:targets => [{:id => 25938088801}]).targets
       expect(targets).to be_an Array
-      expect(targets.first).to be_a Twitter::Tweet
+      expect(targets.first).to be_a TwitterAPI::Tweet
     end
     it "is empty when not set" do
-      targets = Twitter::Action::Favorite.new.targets
+      targets = TwitterAPI::Action::Favorite.new.targets
       expect(targets).to be_empty
     end
   end

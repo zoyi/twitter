@@ -1,9 +1,9 @@
 require 'helper'
 
-describe Twitter::API::Undocumented do
+describe TwitterAPI::API::Undocumented do
 
   before do
-    @client = Twitter::Client.new
+    @client = TwitterAPI::Client.new
   end
 
   describe "#activity_about_me" do
@@ -16,7 +16,7 @@ describe Twitter::API::Undocumented do
     end
     it "returns activity about me" do
       activity_about_me = @client.activity_about_me
-      expect(activity_about_me.first).to be_a Twitter::Action::Mention
+      expect(activity_about_me.first).to be_a TwitterAPI::Action::Mention
     end
   end
 
@@ -30,7 +30,7 @@ describe Twitter::API::Undocumented do
     end
     it "returns activity by friends" do
       activity_by_friends = @client.activity_by_friends
-      expect(activity_by_friends.first).to be_a Twitter::Action::Favorite
+      expect(activity_by_friends.first).to be_a TwitterAPI::Action::Favorite
     end
   end
 
@@ -45,9 +45,9 @@ describe Twitter::API::Undocumented do
       end
       it "returns an array of numeric IDs for every user following the specified user" do
         following_followers_of = @client.following_followers_of("sferik")
-        expect(following_followers_of).to be_a Twitter::Cursor
+        expect(following_followers_of).to be_a TwitterAPI::Cursor
         expect(following_followers_of.users).to be_an Array
-        expect(following_followers_of.users.first).to be_a Twitter::User
+        expect(following_followers_of.users.first).to be_a TwitterAPI::User
       end
       context "with all" do
         before do
@@ -91,9 +91,9 @@ describe Twitter::API::Undocumented do
       end
       it "returns an array of numeric IDs for every user following the specified user" do
         following_followers_of = @client.following_followers_of
-        expect(following_followers_of).to be_a Twitter::Cursor
+        expect(following_followers_of).to be_a TwitterAPI::Cursor
         expect(following_followers_of.users).to be_an Array
-        expect(following_followers_of.users.first).to be_a Twitter::User
+        expect(following_followers_of.users.first).to be_a TwitterAPI::User
       end
       context "with all" do
         before do
@@ -118,7 +118,7 @@ describe Twitter::API::Undocumented do
     end
     it "returns a Tweet" do
       tweet = @client.status_activity(25938088801)
-      expect(tweet).to be_a Twitter::Tweet
+      expect(tweet).to be_a TwitterAPI::Tweet
       expect(tweet.retweeters_count).to eq 1
     end
   end
@@ -134,7 +134,7 @@ describe Twitter::API::Undocumented do
     it "returns an array of Tweets" do
       tweets = @client.statuses_activity(25938088801)
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a TwitterAPI::Tweet
       expect(tweets.first.retweeters_count).to eq 1
     end
   end

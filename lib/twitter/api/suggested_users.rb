@@ -3,15 +3,15 @@ require 'twitter/api/utils'
 require 'twitter/suggestion'
 require 'twitter/user'
 
-module Twitter
+module TwitterAPI
   module API
     module SuggestedUsers
-      include Twitter::API::Utils
+      include TwitterAPI::API::Utils
 
-      # @return [Array<Twitter::Suggestion>]
+      # @return [Array<TwitterAPI::Suggestion>]
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @overload suggestions(options={})
       #   Returns the list of suggested user categories
       #
@@ -28,11 +28,11 @@ module Twitter
       #   @example Return the users in the Art & Design category
       #     Twitter.suggestions("art-design")
       def suggestions(*args)
-        arguments = Twitter::API::Arguments.new(args)
+        arguments = TwitterAPI::API::Arguments.new(args)
         if slug = arguments.pop
-          object_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions/#{slug}.json", arguments.options)
+          object_from_response(TwitterAPI::Suggestion, :get, "/1.1/users/suggestions/#{slug}.json", arguments.options)
         else
-          objects_from_response(Twitter::Suggestion, :get, "/1.1/users/suggestions.json", arguments.options)
+          objects_from_response(TwitterAPI::Suggestion, :get, "/1.1/users/suggestions.json", arguments.options)
         end
       end
 
@@ -43,11 +43,11 @@ module Twitter
       # @authentication Requires user context
       # @param slug [String] The short name of list or a category.
       # @param options [Hash] A customizable set of options.
-      # @return [Array<Twitter::User>]
+      # @return [Array<TwitterAPI::User>]
       # @example Return the users in the Art & Design category and their most recent Tweet if they are not a protected user
       #   Twitter.suggest_users("art-design")
       def suggest_users(slug, options={})
-        objects_from_response(Twitter::User, :get, "/1.1/users/suggestions/#{slug}/members.json", options)
+        objects_from_response(TwitterAPI::User, :get, "/1.1/users/suggestions/#{slug}/members.json", options)
       end
 
     end

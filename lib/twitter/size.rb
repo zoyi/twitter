@@ -1,12 +1,12 @@
 require 'twitter/base'
 
-module Twitter
-  class Size < Twitter::Base
+module TwitterAPI
+  class Size < TwitterAPI::Base
     attr_reader :h, :resize, :w
     alias height h
     alias width w
 
-    # @param other [Twitter::Size]
+    # @param other [TwitterAPI::Size]
     # @return [Boolean]
     def ==(other)
       super || size_equal(other) || attrs_equal(other)
@@ -14,7 +14,7 @@ module Twitter
 
   protected
 
-    # @param other [Twitter::Size]
+    # @param other [TwitterAPI::Size]
     # @return [Boolean]
     def size_equal(other)
       self.class == other.class && !other.h.nil? && h == other.h && !other.w.nil? && w == other.w

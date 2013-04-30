@@ -1,9 +1,9 @@
 require 'helper'
 
-describe Twitter::API::Timelines do
+describe TwitterAPI::API::Timelines do
 
   before do
-    @client = Twitter::Client.new
+    @client = TwitterAPI::Client.new
   end
 
   describe "#mentions_timeline" do
@@ -17,7 +17,7 @@ describe Twitter::API::Timelines do
     it "returns the 20 most recent mentions (status containing @username) for the authenticating user" do
       tweets = @client.mentions_timeline
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a TwitterAPI::Tweet
       expect(tweets.first.text).to eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
     end
   end
@@ -34,7 +34,7 @@ describe Twitter::API::Timelines do
       it "returns the 20 most recent Tweets posted by the user specified by screen name or user id" do
         tweets = @client.user_timeline("sferik")
         expect(tweets).to be_an Array
-        expect(tweets.first).to be_a Twitter::Tweet
+        expect(tweets.first).to be_a TwitterAPI::Tweet
         expect(tweets.first.text).to eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
       end
     end
@@ -62,7 +62,7 @@ describe Twitter::API::Timelines do
     it "returns the 20 most recent retweets posted by the authenticating user" do
       tweets = @client.retweeted_by_user("sferik")
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a TwitterAPI::Tweet
       expect(tweets.first.text).to eq "RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k"
     end
   end
@@ -80,7 +80,7 @@ describe Twitter::API::Timelines do
     it "returns the 20 most recent retweets posted by the authenticating user" do
       tweets = @client.retweeted_by_me
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a TwitterAPI::Tweet
       expect(tweets.first.text).to eq "RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k"
     end
   end
@@ -96,7 +96,7 @@ describe Twitter::API::Timelines do
     it "returns the 20 most recent Tweets, including retweets if they exist, posted by the authenticating user and the user's they follow" do
       tweets = @client.home_timeline
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a TwitterAPI::Tweet
       expect(tweets.first.text).to eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
     end
   end
@@ -114,7 +114,7 @@ describe Twitter::API::Timelines do
     it "returns the 20 most recent retweets posted by users the authenticating user follow" do
       tweets = @client.retweeted_to_me
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a TwitterAPI::Tweet
       expect(tweets.first.text).to eq "RT @olivercameron: Mosaic looks cool: http://t.co/A8013C9k"
     end
   end
@@ -130,7 +130,7 @@ describe Twitter::API::Timelines do
     it "returns the 20 most recent tweets of the authenticated user that have been retweeted by others" do
       tweets = @client.retweets_of_me
       expect(tweets).to be_an Array
-      expect(tweets.first).to be_a Twitter::Tweet
+      expect(tweets.first).to be_a TwitterAPI::Tweet
       expect(tweets.first.text).to eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
     end
   end

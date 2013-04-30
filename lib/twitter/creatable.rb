@@ -1,6 +1,6 @@
 require 'time'
 
-module Twitter
+module TwitterAPI
   module Creatable
 
     # Time when the object was created on Twitter

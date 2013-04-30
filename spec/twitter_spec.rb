@@ -18,13 +18,13 @@ describe Twitter do
     end
 
     it "returns the same results as a client" do
-      expect(Twitter.user_timeline('sferik')).to eq Twitter::Client.new.user_timeline('sferik')
+      expect(Twitter.user_timeline('sferik')).to eq TwitterAPI::Client.new.user_timeline('sferik')
     end
 
   end
 
   describe ".respond_to?" do
-    it "delegates to Twitter::Client" do
+    it "delegates to TwitterAPI::Client" do
       expect(Twitter.respond_to?(:user)).to be_true
     end
     it "takes an optional argument" do
@@ -33,8 +33,8 @@ describe Twitter do
   end
 
   describe ".client" do
-    it "returns a Twitter::Client" do
-      expect(Twitter.client).to be_a Twitter::Client
+    it "returns a TwitterAPI::Client" do
+      expect(Twitter.client).to be_a TwitterAPI::Client
     end
 
     context "when the options don't change" do
@@ -56,7 +56,7 @@ describe Twitter do
   end
 
   describe ".configure" do
-    Twitter::Configurable.keys.each do |key|
+    TwitterAPI::Configurable.keys.each do |key|
       it "sets the #{key.to_s.gsub('_', ' ')}" do
         Twitter.configure do |config|
           config.send("#{key}=", key)
@@ -72,7 +72,7 @@ describe Twitter do
             config.consumer_key = [12345, 54321]
             config.consumer_secret = 'valid_data'
           end
-        }.to raise_exception(Twitter::Error::ConfigurationError)
+        }.to raise_exception(TwitterAPI::Error::ConfigurationError)
       end
     end
 
@@ -85,7 +85,7 @@ describe Twitter do
             config.oauth_token = nil
             config.oauth_token_secret = nil
           end
-        }.to_not raise_exception(Twitter::Error::ConfigurationError)
+        }.to_not raise_exception(TwitterAPI::Error::ConfigurationError)
       end
     end
   end

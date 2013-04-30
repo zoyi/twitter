@@ -1,24 +1,24 @@
 require 'twitter/action/tweet'
 
-module Twitter
+module TwitterAPI
   module Action
-    class Retweet < Twitter::Action::Tweet
+    class Retweet < TwitterAPI::Action::Tweet
 
       # A collection of retweets
       #
-      # @return [Array<Twitter::Tweet>]
+      # @return [Array<TwitterAPI::Tweet>]
       def target_objects
         @target_objects = Array(@attrs[:target_objects]).map do |tweet|
-          Twitter::Tweet.fetch_or_new(tweet)
+          TwitterAPI::Tweet.fetch_or_new(tweet)
         end
       end
 
       # A collection containing the retweeted user
       #
-      # @return [Array<Twitter::User>]
+      # @return [Array<TwitterAPI::User>]
       def targets
         @targets = Array(@attrs[:targets]).map do |user|
-          Twitter::User.fetch_or_new(user)
+          TwitterAPI::User.fetch_or_new(user)
         end
       end
 

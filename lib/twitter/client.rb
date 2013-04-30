@@ -21,35 +21,35 @@ require 'twitter/error/decode_error'
 require 'simple_oauth'
 require 'uri'
 
-module Twitter
+module TwitterAPI
   # Wrapper for the Twitter REST API
   #
   # @note All methods have been separated into modules and follow the same grouping used in {http://dev.twitter.com/doc the Twitter API Documentation}.
   # @see http://dev.twitter.com/pages/every_developer
   class Client
-    include Twitter::API::DirectMessages
-    include Twitter::API::Favorites
-    include Twitter::API::FriendsAndFollowers
-    include Twitter::API::Help
-    include Twitter::API::Lists
-    include Twitter::API::PlacesAndGeo
-    include Twitter::API::SavedSearches
-    include Twitter::API::Search
-    include Twitter::API::SpamReporting
-    include Twitter::API::SuggestedUsers
-    include Twitter::API::Timelines
-    include Twitter::API::Trends
-    include Twitter::API::Tweets
-    include Twitter::API::Undocumented
-    include Twitter::API::Users
-    include Twitter::Configurable
+    include TwitterAPI::API::DirectMessages
+    include TwitterAPI::API::Favorites
+    include TwitterAPI::API::FriendsAndFollowers
+    include TwitterAPI::API::Help
+    include TwitterAPI::API::Lists
+    include TwitterAPI::API::PlacesAndGeo
+    include TwitterAPI::API::SavedSearches
+    include TwitterAPI::API::Search
+    include TwitterAPI::API::SpamReporting
+    include TwitterAPI::API::SuggestedUsers
+    include TwitterAPI::API::Timelines
+    include TwitterAPI::API::Trends
+    include TwitterAPI::API::Tweets
+    include TwitterAPI::API::Undocumented
+    include TwitterAPI::API::Users
+    include TwitterAPI::Configurable
 
     # Initializes a new Client object
     #
     # @param options [Hash]
-    # @return [Twitter::Client]
+    # @return [TwitterAPI::Client]
     def initialize(options={})
-      Twitter::Configurable.keys.each do |key|
+      TwitterAPI::Configurable.keys.each do |key|
         instance_variable_set(:"@#{key}", options[key] || Twitter.instance_variable_get(:"@#{key}"))
       end
     end
@@ -82,9 +82,9 @@ module Twitter
         request.headers[:authorization] = auth_header(method.to_sym, path, signature_params).to_s
       end.env
     rescue Faraday::Error::ClientError
-      raise Twitter::Error::ClientError
+      raise TwitterAPI::Error::ClientError
     rescue MultiJson::DecodeError
-      raise Twitter::Error::DecodeError
+      raise TwitterAPI::Error::DecodeError
     end
 
     # Returns a Faraday::Connection object

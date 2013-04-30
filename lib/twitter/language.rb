@@ -1,7 +1,7 @@
 require 'twitter/base'
 
-module Twitter
-  class Language < Twitter::Base
+module TwitterAPI
+  class Language < TwitterAPI::Base
     attr_reader :code, :name, :status
   end
 end

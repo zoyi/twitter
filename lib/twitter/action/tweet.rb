@@ -1,16 +1,16 @@
 require 'twitter/base'
 require 'twitter/creatable'
 
-module Twitter
+module TwitterAPI
   module Action
-    class Tweet < Twitter::Base
-      include Twitter::Creatable
+    class Tweet < TwitterAPI::Base
+      include TwitterAPI::Creatable
       attr_reader :max_position, :min_position
 
-      # @return [Array<Twitter::User>]
+      # @return [Array<TwitterAPI::User>]
       def sources
         @sources = Array(@attrs[:sources]).map do |user|
-          Twitter::User.fetch_or_new(user)
+          TwitterAPI::User.fetch_or_new(user)
         end
       end
 

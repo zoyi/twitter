@@ -1,4 +1,4 @@
-module Twitter
+module TwitterAPI
   # Custom error class for rescuing from all Twitter errors
   class Error < StandardError
     attr_reader :rate_limit, :wrapped_exception
@@ -17,9 +17,9 @@ module Twitter
     #
     # @param exception [Exception, String]
     # @param response_headers [Hash]
-    # @return [Twitter::Error]
+    # @return [TwitterAPI::Error]
     def initialize(exception=$!, response_headers={})
-      @rate_limit = Twitter::RateLimit.new(response_headers)
+      @rate_limit = TwitterAPI::RateLimit.new(response_headers)
       @wrapped_exception = exception
       exception.respond_to?(:backtrace) ? super(exception.message) : super(exception.to_s)
     end

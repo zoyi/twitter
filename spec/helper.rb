@@ -24,35 +24,35 @@ RSpec.configure do |config|
 end
 
 def a_delete(path)
-  a_request(:delete, Twitter::Default::ENDPOINT + path)
+  a_request(:delete, TwitterAPI::Default::ENDPOINT + path)
 end
 
 def a_get(path)
-  a_request(:get, Twitter::Default::ENDPOINT + path)
+  a_request(:get, TwitterAPI::Default::ENDPOINT + path)
 end
 
 def a_post(path)
-  a_request(:post, Twitter::Default::ENDPOINT + path)
+  a_request(:post, TwitterAPI::Default::ENDPOINT + path)
 end
 
 def a_put(path)
-  a_request(:put, Twitter::Default::ENDPOINT + path)
+  a_request(:put, TwitterAPI::Default::ENDPOINT + path)
 end
 
 def stub_delete(path)
-  stub_request(:delete, Twitter::Default::ENDPOINT + path)
+  stub_request(:delete, TwitterAPI::Default::ENDPOINT + path)
 end
 
 def stub_get(path)
-  stub_request(:get, Twitter::Default::ENDPOINT + path)
+  stub_request(:get, TwitterAPI::Default::ENDPOINT + path)
 end
 
 def stub_post(path)
-  stub_request(:post, Twitter::Default::ENDPOINT + path)
+  stub_request(:post, TwitterAPI::Default::ENDPOINT + path)
 end
 
 def stub_put(path)
-  stub_request(:put, Twitter::Default::ENDPOINT + path)
+  stub_request(:put, TwitterAPI::Default::ENDPOINT + path)
 end
 
 def fixture_path

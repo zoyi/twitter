@@ -1,9 +1,9 @@
 require 'helper'
 
-describe Twitter::API::Lists do
+describe TwitterAPI::API::Lists do
 
   before do
-    @client = Twitter::Client.new
+    @client = TwitterAPI::Client.new
   end
 
   describe "#lists" do
@@ -17,7 +17,7 @@ describe Twitter::API::Lists do
     it "returns the requested list" do
       lists = @client.lists
       expect(lists).to be_an Array
-      expect(lists.first).to be_a Twitter::List
+      expect(lists.first).to be_a TwitterAPI::List
       expect(lists.first.name).to eq "Rubyists"
     end
   end
@@ -34,7 +34,7 @@ describe Twitter::API::Lists do
       it "returns the timeline for members of the specified list" do
         tweets = @client.list_timeline("sferik", "presidents")
         expect(tweets).to be_an Array
-        expect(tweets.first).to be_a Twitter::Tweet
+        expect(tweets.first).to be_a TwitterAPI::Tweet
         expect(tweets.first.text).to eq "Happy Birthday @imdane. Watch out for those @rally pranksters!"
       end
     end
@@ -61,7 +61,7 @@ describe Twitter::API::Lists do
       end
       it "returns the list" do
         list = @client.list_remove_member("sferik", "presidents", 813286)
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a TwitterAPI::List
         expect(list.name).to eq "presidents"
       end
     end
@@ -88,9 +88,9 @@ describe Twitter::API::Lists do
       end
       it "returns the lists the specified user has been added to" do
         memberships = @client.memberships("sferik")
-        expect(memberships).to be_a Twitter::Cursor
+        expect(memberships).to be_a TwitterAPI::Cursor
         expect(memberships.lists).to be_an Array
-        expect(memberships.lists.first).to be_a Twitter::List
+        expect(memberships.lists.first).to be_a TwitterAPI::List
         expect(memberships.lists.first.name).to eq "developer"
       end
       context "with all" do
@@ -156,9 +156,9 @@ describe Twitter::API::Lists do
       end
       it "returns the subscribers of the specified list" do
         list_subscribers = @client.list_subscribers("sferik", "presidents")
-        expect(list_subscribers).to be_a Twitter::Cursor
+        expect(list_subscribers).to be_a TwitterAPI::Cursor
         expect(list_subscribers.users).to be_an Array
-        expect(list_subscribers.users.first).to be_a Twitter::User
+        expect(list_subscribers.users.first).to be_a TwitterAPI::User
         expect(list_subscribers.users.first.id).to eq 7505382
       end
       context "with all" do
@@ -224,7 +224,7 @@ describe Twitter::API::Lists do
       end
       it "returns the specified list" do
         list = @client.list_subscribe("sferik", "presidents")
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a TwitterAPI::List
         expect(list.name).to eq "presidents"
       end
     end
@@ -287,7 +287,7 @@ describe Twitter::API::Lists do
         stub_get("/1.1/lists/subscribers/show.json").with(:query => {:owner_id => "7505382", :list_id => "12345678", :user_id => "813286"}).to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        list = Twitter::List.new(:id => 12345678, :user => {:id => 7505382, :screen_name => "sferik"})
+        list = TwitterAPI::List.new(:id => 12345678, :user => {:id => 7505382, :screen_name => "sferik"})
         @client.list_subscriber?(list, 813286)
         expect(a_get("/1.1/lists/subscribers/show.json").with(:query => {:owner_id => "7505382", :list_id => "12345678", :user_id => "813286"})).to have_been_made
       end
@@ -324,7 +324,7 @@ describe Twitter::API::Lists do
       end
       it "returns the specified list" do
         list = @client.list_unsubscribe("sferik", "presidents")
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a TwitterAPI::List
         expect(list.name).to eq "presidents"
       end
     end
@@ -351,7 +351,7 @@ describe Twitter::API::Lists do
       end
       it "returns the list" do
         list = @client.list_add_members("sferik", "presidents", [813286, 18755393])
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a TwitterAPI::List
         expect(list.name).to eq "presidents"
       end
     end
@@ -423,7 +423,7 @@ describe Twitter::API::Lists do
         stub_get("/1.1/lists/members/show.json").with(:query => {:owner_id => "7505382", :list_id => "12345678", :user_id => "813286"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        list = Twitter::List.new(:id => 12345678, :user => {:id => 7505382, :screen_name => "sferik"})
+        list = TwitterAPI::List.new(:id => 12345678, :user => {:id => 7505382, :screen_name => "sferik"})
         @client.list_member?(list, 813286)
         expect(a_get("/1.1/lists/members/show.json").with(:query => {:owner_id => "7505382", :list_id => "12345678", :user_id => "813286"})).to have_been_made
       end
@@ -460,9 +460,9 @@ describe Twitter::API::Lists do
       end
       it "returns the members of the specified list" do
         list_members = @client.list_members("sferik", "presidents")
-        expect(list_members).to be_a Twitter::Cursor
+        expect(list_members).to be_a TwitterAPI::Cursor
         expect(list_members.users).to be_an Array
-        expect(list_members.users.first).to be_a Twitter::User
+        expect(list_members.users.first).to be_a TwitterAPI::User
         expect(list_members.users.first.id).to eq 7505382
       end
       context "with all" do
@@ -528,7 +528,7 @@ describe Twitter::API::Lists do
       end
       it "returns the list" do
         list = @client.list_add_member("sferik", "presidents", 813286)
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a TwitterAPI::List
         expect(list.name).to eq "presidents"
       end
     end
@@ -555,7 +555,7 @@ describe Twitter::API::Lists do
       end
       it "returns the deleted list" do
         list = @client.list_destroy("sferik", "presidents")
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a TwitterAPI::List
         expect(list.name).to eq "presidents"
       end
     end
@@ -583,7 +583,7 @@ describe Twitter::API::Lists do
         stub_post("/1.1/lists/destroy.json").with(:body => {:owner_id => "7505382", :list_id => "12345678"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        list = Twitter::List.new(:id => "12345678", :user => {:id => 7505382, :screen_name => "sferik"})
+        list = TwitterAPI::List.new(:id => "12345678", :user => {:id => 7505382, :screen_name => "sferik"})
         @client.list_destroy(list)
         expect(a_post("/1.1/lists/destroy.json").with(:body => {:owner_id => "7505382", :list_id => "12345678"})).to have_been_made
       end
@@ -601,7 +601,7 @@ describe Twitter::API::Lists do
       end
       it "returns the updated list" do
         list = @client.list_update("sferik", "presidents", :description => "Presidents of the United States of America")
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a TwitterAPI::List
         expect(list.name).to eq "presidents"
       end
     end
@@ -629,7 +629,7 @@ describe Twitter::API::Lists do
         stub_post("/1.1/lists/update.json").with(:body => {:owner_id => "7505382", :list_id => "12345678", :description => "Presidents of the United States of America"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        list = Twitter::List.new(:id => "12345678", :user => {:id => 7505382, :screen_name => "sferik"})
+        list = TwitterAPI::List.new(:id => "12345678", :user => {:id => 7505382, :screen_name => "sferik"})
         @client.list_update(list, :description => "Presidents of the United States of America")
         expect(a_post("/1.1/lists/update.json").with(:body => {:owner_id => "7505382", :list_id => "12345678", :description => "Presidents of the United States of America"})).to have_been_made
       end
@@ -646,7 +646,7 @@ describe Twitter::API::Lists do
     end
     it "returns the created list" do
       list = @client.list_create("presidents")
-      expect(list).to be_a Twitter::List
+      expect(list).to be_a TwitterAPI::List
       expect(list.name).to eq "presidents"
     end
   end
@@ -662,7 +662,7 @@ describe Twitter::API::Lists do
       end
       it "returns the updated list" do
         list = @client.list("sferik", "presidents")
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a TwitterAPI::List
         expect(list.name).to eq "presidents"
       end
     end
@@ -680,7 +680,7 @@ describe Twitter::API::Lists do
         stub_get("/1.1/lists/show.json").with(:query => {:owner_id => "12345678", :slug => "presidents"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        user = Twitter::User.new(:id => "12345678")
+        user = TwitterAPI::User.new(:id => "12345678")
         @client.list(user, "presidents")
         expect(a_get("/1.1/lists/show.json").with(:query => {:owner_id => "12345678", :slug => "presidents"})).to have_been_made
       end
@@ -709,7 +709,7 @@ describe Twitter::API::Lists do
         stub_get("/1.1/lists/show.json").with(:query => {:owner_id => "7505382", :list_id => "12345678"}).to_return(:body => fixture("list.json"), :headers => {:content_type => "application/json; charset=utf-8"})
       end
       it "requests the correct resource" do
-        list = Twitter::List.new(:id => "12345678", :user => {:id => 7505382, :screen_name => "sferik"})
+        list = TwitterAPI::List.new(:id => "12345678", :user => {:id => 7505382, :screen_name => "sferik"})
         @client.list(list)
         expect(a_get("/1.1/lists/show.json").with(:query => {:owner_id => "7505382", :list_id => "12345678"})).to have_been_made
       end
@@ -727,9 +727,9 @@ describe Twitter::API::Lists do
       end
       it "returns the lists the specified user follows" do
         subscriptions = @client.subscriptions("sferik")
-        expect(subscriptions).to be_a Twitter::Cursor
+        expect(subscriptions).to be_a TwitterAPI::Cursor
         expect(subscriptions.lists).to be_an Array
-        expect(subscriptions.lists.first).to be_a Twitter::List
+        expect(subscriptions.lists.first).to be_a TwitterAPI::List
         expect(subscriptions.lists.first.name).to eq "Rubyists"
       end
       context "with all" do
@@ -795,7 +795,7 @@ describe Twitter::API::Lists do
       end
       it "returns the list" do
         list = @client.list_remove_members("sferik", "presidents", [813286, 18755393])
-        expect(list).to be_a Twitter::List
+        expect(list).to be_a TwitterAPI::List
         expect(list.name).to eq "presidents"
       end
     end

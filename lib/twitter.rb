@@ -30,15 +30,15 @@ require 'twitter/trend'
 require 'twitter/tweet'
 require 'twitter/user'
 
-module Twitter
+module TwitterAPI
   class << self
-    include Twitter::Configurable
+    include TwitterAPI::Configurable
 
-    # Delegate to a Twitter::Client
+    # Delegate to a TwitterAPI::Client
     #
-    # @return [Twitter::Client]
+    # @return [TwitterAPI::Client]
     def client
-      @client = Twitter::Client.new(options) unless defined?(@client) && @client.hash == options.hash
+      @client = TwitterAPI::Client.new(options) unless defined?(@client) && @client.hash == options.hash
       @client
     end
 

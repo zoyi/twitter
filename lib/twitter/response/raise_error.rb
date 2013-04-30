@@ -11,7 +11,7 @@ require 'twitter/error/too_many_requests'
 require 'twitter/error/unauthorized'
 require 'twitter/error/unprocessable_entity'
 
-module Twitter
+module TwitterAPI
   module Response
     class RaiseError < Faraday::Response::Middleware
 

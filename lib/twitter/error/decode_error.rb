@@ -1,9 +1,9 @@
 require 'twitter/error'
 
-module Twitter
+module TwitterAPI
   class Error
     # Raised when JSON parsing fails
-    class DecodeError < Twitter::Error
+    class DecodeError < TwitterAPI::Error
     end
   end
 end

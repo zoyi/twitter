@@ -1,6 +1,6 @@
 require 'twitter/core_ext/kernel'
 
-module Twitter
+module TwitterAPI
   class Cursor
     include Enumerable
     attr_reader :attrs, :collection
@@ -11,10 +11,10 @@ module Twitter
     # @param response [Hash]
     # @param collection_name [String, Symbol] The name of the method to return the collection
     # @param klass [Class] The class to instantiate object in the collection
-    # @param client [Twitter::Client]
+    # @param client [TwitterAPI::Client]
     # @param method_name [String, Symbol]
     # @param method_options [Hash]
-    # @return [Twitter::Cursor]
+    # @return [TwitterAPI::Cursor]
     def self.from_response(response, collection_name, klass, client, method_name, method_options)
       new(response[:body], collection_name, klass, client, method_name, method_options)
     end
@@ -24,10 +24,10 @@ module Twitter
     # @param attrs [Hash]
     # @param collection_name [String, Symbol] The name of the method to return the collection
     # @param klass [Class] The class to instantiate object in the collection
-    # @param client [Twitter::Client]
+    # @param client [TwitterAPI::Client]
     # @param method_name [String, Symbol]
     # @param method_options [Hash]
-    # @return [Twitter::Cursor]
+    # @return [TwitterAPI::Cursor]
     def initialize(attrs, collection_name, klass, client, method_name, method_options)
       @attrs = attrs
       @client = client

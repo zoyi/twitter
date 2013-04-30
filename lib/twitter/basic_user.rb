@@ -1,7 +1,7 @@
 require 'twitter/identity'
 
-module Twitter
-  class BasicUser < Twitter::Identity
+module TwitterAPI
+  class BasicUser < TwitterAPI::Identity
     attr_reader :following, :screen_name
     alias handle screen_name
     alias username screen_name

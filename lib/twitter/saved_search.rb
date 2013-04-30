@@ -1,9 +1,9 @@
 require 'twitter/creatable'
 require 'twitter/identity'
 
-module Twitter
-  class SavedSearch < Twitter::Identity
-    include Twitter::Creatable
+module TwitterAPI
+  class SavedSearch < TwitterAPI::Identity
+    include TwitterAPI::Creatable
     attr_reader :name, :position, :query
   end
 end

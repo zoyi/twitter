@@ -1,9 +1,9 @@
 require 'helper'
 
-describe Twitter::API::SuggestedUsers do
+describe TwitterAPI::API::SuggestedUsers do
 
   before do
-    @client = Twitter::Client.new
+    @client = TwitterAPI::Client.new
   end
 
   describe "#suggestions" do
@@ -17,10 +17,10 @@ describe Twitter::API::SuggestedUsers do
       end
       it "returns the users in a given category of the Twitter suggested user list" do
         suggestion = @client.suggestions("art-design")
-        expect(suggestion).to be_a Twitter::Suggestion
+        expect(suggestion).to be_a TwitterAPI::Suggestion
         expect(suggestion.name).to eq "Art & Design"
         expect(suggestion.users).to be_an Array
-        expect(suggestion.users.first).to be_a Twitter::User
+        expect(suggestion.users.first).to be_a TwitterAPI::User
       end
     end
     context "without arguments passed" do
@@ -34,7 +34,7 @@ describe Twitter::API::SuggestedUsers do
       it "returns the list of suggested user categories" do
         suggestions = @client.suggestions
         expect(suggestions).to be_an Array
-        expect(suggestions.first).to be_a Twitter::Suggestion
+        expect(suggestions.first).to be_a TwitterAPI::Suggestion
         expect(suggestions.first.name).to eq "Art & Design"
       end
     end
@@ -51,7 +51,7 @@ describe Twitter::API::SuggestedUsers do
     it "returns users in a given category of the Twitter suggested user list and return their most recent status if they are not a protected user" do
       suggest_users = @client.suggest_users("art-design")
       expect(suggest_users).to be_an Array
-      expect(suggest_users.first).to be_a Twitter::User
+      expect(suggest_users.first).to be_a TwitterAPI::User
       expect(suggest_users.first.id).to eq 13
     end
   end

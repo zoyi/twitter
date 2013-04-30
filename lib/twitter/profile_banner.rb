@@ -1,14 +1,14 @@
 require 'twitter/base'
 
-module Twitter
-  class ProfileBanner < Twitter::Base
+module TwitterAPI
+  class ProfileBanner < TwitterAPI::Base
 
     # Returns an array of photo sizes
     #
-    # @return [Array<Twitter::Size>]
+    # @return [Array<TwitterAPI::Size>]
     def sizes
       @sizes ||= Array(@attrs[:sizes]).inject({}) do |object, (key, value)|
-        object[key] = Twitter::Size.fetch_or_new(value)
+        object[key] = TwitterAPI::Size.fetch_or_new(value)
         object
       end
     end

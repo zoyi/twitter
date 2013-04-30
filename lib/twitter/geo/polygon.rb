@@ -1,8 +1,8 @@
 require 'twitter/geo'
 
-module Twitter
+module TwitterAPI
   class Geo
-    class Polygon < Twitter::Geo
+    class Polygon < TwitterAPI::Geo
     end
   end
 end

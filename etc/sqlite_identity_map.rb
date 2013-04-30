@@ -1,6 +1,6 @@
 require 'sqlite3'
 
-module Twitter
+module TwitterAPI
   class SqliteIdentityMap
     include SQLite3
 

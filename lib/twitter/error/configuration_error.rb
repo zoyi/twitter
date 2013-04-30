@@ -1,6 +1,6 @@
 require 'twitter/error'
 
-module Twitter
+module TwitterAPI
   class Error
     class ConfigurationError < ::ArgumentError
     end

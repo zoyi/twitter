@@ -1,7 +1,7 @@
 require 'twitter/base'
 
-module Twitter
-  class Metadata < Twitter::Base
+module TwitterAPI
+  class Metadata < TwitterAPI::Base
     attr_reader :result_type
   end
 end

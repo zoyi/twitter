@@ -1,9 +1,9 @@
-module Twitter
+module TwitterAPI
   class RateLimit
     attr_reader :attrs
     alias to_hash attrs
 
-    # @return [Twitter::RateLimit]
+    # @return [TwitterAPI::RateLimit]
     def initialize(attrs={})
       @attrs = attrs
     end
@@ -35,7 +35,7 @@ module Twitter
     # Update the attributes of a RateLimit
     #
     # @param attrs [Hash]
-    # @return [Twitter::RateLimit]
+    # @return [TwitterAPI::RateLimit]
     def update(attrs)
       @attrs.update(attrs)
       self

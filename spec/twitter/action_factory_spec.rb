@@ -1,34 +1,34 @@
 require 'helper'
 
-describe Twitter::ActionFactory do
+describe TwitterAPI::ActionFactory do
 
   describe ".new" do
     it "generates a Favorite" do
-      action = Twitter::ActionFactory.fetch_or_new(:action => 'favorite')
-      expect(action).to be_a Twitter::Action::Favorite
+      action = TwitterAPI::ActionFactory.fetch_or_new(:action => 'favorite')
+      expect(action).to be_a TwitterAPI::Action::Favorite
     end
     it "generates a Follow" do
-      action = Twitter::ActionFactory.fetch_or_new(:action => 'follow')
-      expect(action).to be_a Twitter::Action::Follow
+      action = TwitterAPI::ActionFactory.fetch_or_new(:action => 'follow')
+      expect(action).to be_a TwitterAPI::Action::Follow
     end
     it "generates a ListMemberAdded" do
-      action = Twitter::ActionFactory.fetch_or_new(:action => 'list_member_added')
-      expect(action).to be_a Twitter::Action::ListMemberAdded
+      action = TwitterAPI::ActionFactory.fetch_or_new(:action => 'list_member_added')
+      expect(action).to be_a TwitterAPI::Action::ListMemberAdded
     end
     it "generates a Mention" do
-      action = Twitter::ActionFactory.fetch_or_new(:action => 'mention')
-      expect(action).to be_a Twitter::Action::Mention
+      action = TwitterAPI::ActionFactory.fetch_or_new(:action => 'mention')
+      expect(action).to be_a TwitterAPI::Action::Mention
     end
     it "generates a Reply" do
-      action = Twitter::ActionFactory.fetch_or_new(:action => 'reply')
-      expect(action).to be_a Twitter::Action::Reply
+      action = TwitterAPI::ActionFactory.fetch_or_new(:action => 'reply')
+      expect(action).to be_a TwitterAPI::Action::Reply
     end
     it "generates a Retweet" do
-      action = Twitter::ActionFactory.fetch_or_new(:action => 'retweet')
-      expect(action).to be_a Twitter::Action::Retweet
+      action = TwitterAPI::ActionFactory.fetch_or_new(:action => 'retweet')
+      expect(action).to be_a TwitterAPI::Action::Retweet
     end
     it "raises an ArgumentError when action is not specified" do
-      expect{Twitter::ActionFactory.fetch_or_new}.to raise_error ArgumentError
+      expect{TwitterAPI::ActionFactory.fetch_or_new}.to raise_error ArgumentError
     end
   end
 

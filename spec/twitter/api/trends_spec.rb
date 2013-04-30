@@ -1,9 +1,9 @@
 require 'helper'
 
-describe Twitter::API::Trends do
+describe TwitterAPI::API::Trends do
 
   before do
-    @client = Twitter::Client.new
+    @client = TwitterAPI::Client.new
   end
 
   describe "#trends" do
@@ -18,7 +18,7 @@ describe Twitter::API::Trends do
       it "returns the top 10 trending topics for a specific WOEID" do
         matching_trends = @client.trends(2487956)
         expect(matching_trends).to be_an Array
-        expect(matching_trends.first).to be_a Twitter::Trend
+        expect(matching_trends.first).to be_a TwitterAPI::Trend
         expect(matching_trends.first.name).to eq "#sevenwordsaftersex"
       end
     end
@@ -44,7 +44,7 @@ describe Twitter::API::Trends do
     it "returns the locations that Twitter has trending topic information for" do
       locations = @client.trends_available
       expect(locations).to be_an Array
-      expect(locations.first).to be_a Twitter::Place
+      expect(locations.first).to be_a TwitterAPI::Place
       expect(locations.first.name).to eq "Ireland"
     end
   end
@@ -60,7 +60,7 @@ describe Twitter::API::Trends do
     it "returns the locations that Twitter has trending topic information for" do
       locations = @client.trends_closest
       expect(locations).to be_an Array
-      expect(locations.first).to be_a Twitter::Place
+      expect(locations.first).to be_a TwitterAPI::Place
       expect(locations.first.name).to eq "Ireland"
     end
   end

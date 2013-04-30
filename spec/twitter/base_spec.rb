@@ -1,12 +1,12 @@
 require 'helper'
 
-describe Twitter::Base do
+describe TwitterAPI::Base do
 
   context "identity map enabled" do
     before do
-      Twitter.identity_map = Twitter::IdentityMap
-      object = Twitter::Base.new(:id => 1)
-      @base = Twitter::Base.store(object)
+      Twitter.identity_map = TwitterAPI::IdentityMap
+      object = TwitterAPI::Base.new(:id => 1)
+      @base = TwitterAPI::Base.store(object)
     end
 
     after do
@@ -15,34 +15,34 @@ describe Twitter::Base do
 
     describe ".identity_map" do
       it "returns an instance of the identity map" do
-        expect(Twitter::Base.identity_map).to be_a Twitter::IdentityMap
+        expect(TwitterAPI::Base.identity_map).to be_a TwitterAPI::IdentityMap
       end
     end
 
     describe ".fetch" do
       it "returns existing objects" do
-        expect(Twitter::Base.fetch(:id => 1)).to be
+        expect(TwitterAPI::Base.fetch(:id => 1)).to be
       end
 
       it "raises an error on objects that don't exist" do
-        expect{Twitter::Base.fetch(:id => 6)}.to raise_error Twitter::Error::IdentityMapKeyError
+        expect{TwitterAPI::Base.fetch(:id => 6)}.to raise_error TwitterAPI::Error::IdentityMapKeyError
       end
     end
 
     describe ".store" do
-      it "stores Twitter::Base objects" do
-        object = Twitter::Base.new(:id => 4)
-        expect(Twitter::Base.store(object)).to be_a Twitter::Base
+      it "stores TwitterAPI::Base objects" do
+        object = TwitterAPI::Base.new(:id => 4)
+        expect(TwitterAPI::Base.store(object)).to be_a TwitterAPI::Base
       end
     end
 
     describe ".fetch_or_new" do
       it "returns existing objects" do
-        expect(Twitter::Base.fetch_or_new(:id => 1)).to be
+        expect(TwitterAPI::Base.fetch_or_new(:id => 1)).to be
       end
       it "creates new objects and stores them" do
-        expect(Twitter::Base.fetch_or_new(:id => 2)).to be
-        expect(Twitter::Base.fetch(:id => 2)).to be
+        expect(TwitterAPI::Base.fetch_or_new(:id => 2)).to be
+        expect(TwitterAPI::Base.fetch(:id => 2)).to be
       end
     end
 
@@ -68,7 +68,7 @@ describe Twitter::Base do
 
     describe "identical objects" do
       it "have the same object_id" do
-        expect(@base.object_id).to eq Twitter::Base.fetch(:id => 1).object_id
+        expect(@base.object_id).to eq TwitterAPI::Base.fetch(:id => 1).object_id
       end
     end
 
@@ -79,30 +79,30 @@ describe Twitter::Base do
       Twitter.identity_map = false
     end
     after(:all) do
-      Twitter.identity_map = Twitter::IdentityMap
+      Twitter.identity_map = TwitterAPI::IdentityMap
     end
 
     describe ".identity_map" do
       it "returns nil" do
-        expect(Twitter::Base.identity_map).to be_nil
+        expect(TwitterAPI::Base.identity_map).to be_nil
       end
     end
 
     describe ".fetch" do
       it "returns nil" do
-        expect(Twitter::Base.fetch(:id => 1)).to be_nil
+        expect(TwitterAPI::Base.fetch(:id => 1)).to be_nil
       end
     end
 
     describe ".store" do
       it "returns an instance of the object" do
-        expect(Twitter::Base.store(Twitter::Base.new(:id => 1))).to be_a Twitter::Base
+        expect(TwitterAPI::Base.store(TwitterAPI::Base.new(:id => 1))).to be_a TwitterAPI::Base
       end
     end
 
     describe ".fetch_or_new" do
       it "creates new objects" do
-        expect(Twitter::Base.fetch_or_new(:id => 2)).to be
+        expect(TwitterAPI::Base.fetch_or_new(:id => 2)).to be
         expect(Twitter.identity_map).to be_false
       end
     end

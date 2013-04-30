@@ -23,5 +23,5 @@ Gem::Specification.new do |spec|
   spec.signing_key = File.expand_path("~/.gem/private_key.pem") if $0 =~ /gem\z/
   spec.summary = spec.description
   spec.test_files = Dir.glob("spec/**/*")
-  spec.version = Twitter::Version
+  spec.version = TwitterAPI::Version
 end

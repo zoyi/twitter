@@ -1,9 +1,9 @@
 require 'helper'
 
-describe Twitter::API::PlacesAndGeo do
+describe TwitterAPI::API::PlacesAndGeo do
 
   before do
-    @client = Twitter::Client.new
+    @client = TwitterAPI::Client.new
   end
 
   describe "#place" do

@@ -1,12 +1,12 @@
 require 'helper'
 
-describe Twitter::Error::ClientError do
+describe TwitterAPI::Error::ClientError do
 
   before do
-    @client = Twitter::Client.new
+    @client = TwitterAPI::Client.new
   end
 
-  Twitter::Error::ClientError.errors.each do |status, exception|
+  TwitterAPI::Error::ClientError.errors.each do |status, exception|
     [nil, "error", "errors"].each do |body|
       context "when HTTP status is #{status} and body is #{body.inspect}" do
         before do

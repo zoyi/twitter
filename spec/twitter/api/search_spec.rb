@@ -1,9 +1,9 @@
 require 'helper'
 
-describe Twitter::API::Search do
+describe TwitterAPI::API::Search do
 
   before do
-    @client = Twitter::Client.new
+    @client = TwitterAPI::Client.new
   end
 
   describe "#search" do
@@ -16,9 +16,9 @@ describe Twitter::API::Search do
     end
     it "returns recent Tweets related to a query with images and videos embedded" do
       search = @client.search("twitter")
-      expect(search).to be_a Twitter::SearchResults
+      expect(search).to be_a TwitterAPI::SearchResults
       expect(search.results).to be_an Array
-      expect(search.results.first).to be_a Twitter::Tweet
+      expect(search.results.first).to be_a TwitterAPI::Tweet
       expect(search.results.first.text).to eq "Bubble Mailer #freebandnames"
     end
     it "returns the max_id value for a search result" do

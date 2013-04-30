@@ -8,13 +8,13 @@ require 'twitter/response/parse_json'
 require 'twitter/response/raise_error'
 require 'twitter/version'
 
-module Twitter
+module TwitterAPI
   module Default
-    ENDPOINT = 'https://api.twitter.com' unless defined? Twitter::Default::ENDPOINT
+    ENDPOINT = 'https://api.twitter.com' unless defined? TwitterAPI::Default::ENDPOINT
     CONNECTION_OPTIONS = {
       :headers => {
         :accept => 'application/json',
-        :user_agent => "Twitter Ruby Gem #{Twitter::Version}",
+        :user_agent => "Twitter Ruby Gem #{TwitterAPI::Version}",
       },
       :request => {
         :open_timeout => 5,
@@ -23,30 +23,30 @@ module Twitter
       :ssl => {
         :verify => false
       },
-    } unless defined? Twitter::Default::CONNECTION_OPTIONS
-    IDENTITY_MAP = false unless defined? Twitter::Default::IDENTITY_MAP
+    } unless defined? TwitterAPI::Default::CONNECTION_OPTIONS
+    IDENTITY_MAP = false unless defined? TwitterAPI::Default::IDENTITY_MAP
     MIDDLEWARE = Faraday::Builder.new do |builder|
       # Convert file uploads to Faraday::UploadIO objects
-      builder.use Twitter::Request::MultipartWithFile
+      builder.use TwitterAPI::Request::MultipartWithFile
       # Checks for files in the payload
       builder.use Faraday::Request::Multipart
       # Convert request params to "www-form-urlencoded"
       builder.use Faraday::Request::UrlEncoded
       # Handle 4xx server responses
-      builder.use Twitter::Response::RaiseError, Twitter::Error::ClientError
+      builder.use TwitterAPI::Response::RaiseError, TwitterAPI::Error::ClientError
       # Parse JSON response bodies using MultiJson
-      builder.use Twitter::Response::ParseJson
+      builder.use TwitterAPI::Response::ParseJson
       # Handle 5xx server responses
-      builder.use Twitter::Response::RaiseError, Twitter::Error::ServerError
+      builder.use TwitterAPI::Response::RaiseError, TwitterAPI::Error::ServerError
       # Set Faraday's HTTP adapter
       builder.adapter Faraday.default_adapter
-    end unless defined? Twitter::Default::MIDDLEWARE
+    end unless defined? TwitterAPI::Default::MIDDLEWARE
 
     class << self
 
       # @return [Hash]
       def options
-        Hash[Twitter::Configurable.keys.map{|key| [key, send(key)]}]
+        Hash[TwitterAPI::Configurable.keys.map{|key| [key, send(key)]}]
       end
 
       # @return [String]

@@ -1,13 +1,13 @@
 require 'twitter/identity'
 
-module Twitter
-  class Place < Twitter::Identity
+module TwitterAPI
+  class Place < TwitterAPI::Identity
     attr_reader :attributes, :country, :full_name, :name, :url, :woeid
     alias woe_id woeid
 
-    # @return [Twitter::Geo]
+    # @return [TwitterAPI::Geo]
     def bounding_box
-      @bounding_box ||= Twitter::GeoFactory.fetch_or_new(@attrs[:bounding_box])
+      @bounding_box ||= TwitterAPI::GeoFactory.fetch_or_new(@attrs[:bounding_box])
     end
 
     # @return [String]

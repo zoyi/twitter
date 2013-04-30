@@ -1,11 +1,11 @@
-module Twitter
+module TwitterAPI
   class Factory
 
     # Instantiates a new action object
     #
     # @param attrs [Hash]
     # @raise [ArgumentError] Error raised when supplied argument is missing an :action key.
-    # @return [Twitter::Action::Favorite, Twitter::Action::Follow, Twitter::Action::ListMemberAdded, Twitter::Action::Mention, Twitter::Action::Reply, Twitter::Action::Retweet]
+    # @return [TwitterAPI::Action::Favorite, TwitterAPI::Action::Follow, TwitterAPI::Action::ListMemberAdded, TwitterAPI::Action::Mention, TwitterAPI::Action::Reply, TwitterAPI::Action::Retweet]
     def self.fetch_or_new(method, klass, attrs={})
       return unless attrs
       type = attrs.delete(method.to_sym)

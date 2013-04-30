@@ -2,7 +2,7 @@ require 'twitter/api/arguments'
 require 'twitter/cursor'
 require 'twitter/user'
 
-module Twitter
+module TwitterAPI
   module API
     module Utils
 
@@ -13,22 +13,22 @@ module Twitter
       # @param request_method [Symbol]
       # @param path [String]
       # @param args [Array]
-      # @return [Array<Twitter::User>]
+      # @return [Array<TwitterAPI::User>]
       def threaded_user_objects_from_response(request_method, path, args)
-        arguments = Twitter::API::Arguments.new(args)
+        arguments = TwitterAPI::API::Arguments.new(args)
         arguments.flatten.threaded_map do |user|
-          object_from_response(Twitter::User, request_method, path, merge_user(arguments.options, user))
+          object_from_response(TwitterAPI::User, request_method, path, merge_user(arguments.options, user))
         end
       end
 
       # @param request_method [Symbol]
       # @param path [String]
       # @param args [Array]
-      # @return [Array<Twitter::User>]
+      # @return [Array<TwitterAPI::User>]
       def user_objects_from_response(request_method, path, args)
-        arguments = Twitter::API::Arguments.new(args)
+        arguments = TwitterAPI::API::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
-        objects_from_response(Twitter::User, request_method, path, arguments.options)
+        objects_from_response(TwitterAPI::User, request_method, path, arguments.options)
       end
 
       # @param klass [Class]
@@ -37,7 +37,7 @@ module Twitter
       # @param args [Array]
       # @return [Array]
       def objects_from_response_with_user(klass, request_method, path, args)
-        arguments = Twitter::API::Arguments.new(args)
+        arguments = TwitterAPI::API::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop)
         objects_from_response(klass, request_method, path, arguments.options)
       end
@@ -67,7 +67,7 @@ module Twitter
       # @param args [Array]
       # @return [Array]
       def threaded_object_from_response(klass, request_method, path, args)
-        arguments = Twitter::API::Arguments.new(args)
+        arguments = TwitterAPI::API::Arguments.new(args)
         arguments.flatten.threaded_map do |id|
           object_from_response(klass, request_method, path, arguments.options.merge(:id => id))
         end
@@ -89,9 +89,9 @@ module Twitter
       # @param path [String]
       # @param args [Array]
       # @param method_name [Symbol]
-      # @return [Twitter::Cursor]
+      # @return [TwitterAPI::Cursor]
       def cursor_from_response_with_user(collection_name, klass, request_method, path, args, method_name)
-        arguments = Twitter::API::Arguments.new(args)
+        arguments = TwitterAPI::API::Arguments.new(args)
         merge_user!(arguments.options, arguments.pop || screen_name) unless arguments.options[:user_id] || arguments.options[:screen_name]
         cursor_from_response(collection_name, klass, request_method, path, arguments.options, method_name)
       end
@@ -102,11 +102,11 @@ module Twitter
       # @param path [String]
       # @param options [Hash]
       # @param method_name [Symbol]
-      # @return [Twitter::Cursor]
+      # @return [TwitterAPI::Cursor]
       def cursor_from_response(collection_name, klass, request_method, path, options, method_name)
         merge_default_cursor!(options)
         response = send(request_method.to_sym, path, options)
-        Twitter::Cursor.from_response(response, collection_name.to_sym, klass, self, method_name, options)
+        TwitterAPI::Cursor.from_response(response, collection_name.to_sym, klass, self, method_name, options)
       end
 
       def handle_forbidden_error(klass, error)
@@ -128,7 +128,7 @@ module Twitter
       # Take a user and merge it into the hash with the correct key
       #
       # @param hash [Hash]
-      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
+      # @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen_name, or object.
       # @return [Hash]
       def merge_user(hash, user, prefix=nil)
         merge_user!(hash.dup, user, prefix)
@@ -137,7 +137,7 @@ module Twitter
       # Take a user and merge it into the hash with the correct key
       #
       # @param hash [Hash]
-      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen_name, or object.
+      # @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen_name, or object.
       # @return [Hash]
       def merge_user!(hash, user, prefix=nil)
         case user
@@ -145,7 +145,7 @@ module Twitter
           hash[[prefix, "user_id"].compact.join("_").to_sym] = user
         when String
           hash[[prefix, "screen_name"].compact.join("_").to_sym] = user
-        when Twitter::User
+        when TwitterAPI::User
           hash[[prefix, "user_id"].compact.join("_").to_sym] = user.id
         end
         hash
@@ -154,7 +154,7 @@ module Twitter
       # Take a multiple users and merge them into the hash with the correct keys
       #
       # @param hash [Hash]
-      # @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen_names, or objects.
+      # @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen_names, or objects.
       # @return [Hash]
       def merge_users(hash, users)
         merge_users!(hash.dup, users)
@@ -163,7 +163,7 @@ module Twitter
       # Take a multiple users and merge them into the hash with the correct keys
       #
       # @param hash [Hash]
-      # @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen_names, or objects.
+      # @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen_names, or objects.
       # @return [Hash]
       def merge_users!(hash, users)
         user_ids, screen_names = [], []
@@ -173,7 +173,7 @@ module Twitter
             user_ids << user
           when String
             screen_names << user
-          when Twitter::User
+          when TwitterAPI::User
             user_ids << user.id
           end
         end

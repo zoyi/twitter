@@ -1,16 +1,16 @@
 require 'helper'
 
-describe Twitter::Client do
+describe TwitterAPI::Client do
 
   subject do
-    Twitter::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
+    TwitterAPI::Client.new(:consumer_key => "CK", :consumer_secret => "CS", :oauth_token => "OT", :oauth_token_secret => "OS")
   end
 
   context "with module configuration" do
 
     before do
       Twitter.configure do |config|
-        Twitter::Configurable.keys.each do |key|
+        TwitterAPI::Configurable.keys.each do |key|
           config.send("#{key}=", key)
         end
       end
@@ -21,8 +21,8 @@ describe Twitter::Client do
     end
 
     it "inherits the module configuration" do
-      client = Twitter::Client.new
-      Twitter::Configurable.keys.each do |key|
+      client = TwitterAPI::Client.new
+      TwitterAPI::Configurable.keys.each do |key|
         expect(client.instance_variable_get(:"@#{key}")).to eq key
       end
     end
@@ -44,8 +44,8 @@ describe Twitter::Client do
 
       context "during initialization" do
         it "overrides the module configuration" do
-          client = Twitter::Client.new(@configuration)
-          Twitter::Configurable.keys.each do |key|
+          client = TwitterAPI::Client.new(@configuration)
+          TwitterAPI::Configurable.keys.each do |key|
             expect(client.instance_variable_get(:"@#{key}")).to eq @configuration[key]
           end
         end
@@ -53,13 +53,13 @@ describe Twitter::Client do
 
       context "after initialization" do
         it "overrides the module configuration after initialization" do
-          client = Twitter::Client.new
+          client = TwitterAPI::Client.new
           client.configure do |config|
             @configuration.each do |key, value|
               config.send("#{key}=", value)
             end
           end
-          Twitter::Configurable.keys.each do |key|
+          TwitterAPI::Configurable.keys.each do |key|
             expect(client.instance_variable_get(:"@#{key}")).to eq @configuration[key]
           end
         end
@@ -70,10 +70,10 @@ describe Twitter::Client do
 
   it "does not cache the screen name across clients" do
     stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("sferik.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    client1 = Twitter::Client.new
+    client1 = TwitterAPI::Client.new
     expect(client1.verify_credentials.id).to eq 7505382
     stub_get("/1.1/account/verify_credentials.json").to_return(:body => fixture("pengwynn.json"), :headers => {:content_type => "application/json; charset=utf-8"})
-    client2 = Twitter::Client.new
+    client2 = TwitterAPI::Client.new
     expect(client2.verify_credentials.id).to eq 14100886
   end
 
@@ -99,11 +99,11 @@ describe Twitter::Client do
 
   describe "#credentials?" do
     it "returns true if all credentials are present" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS')
+      client = TwitterAPI::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT', :oauth_token_secret => 'OS')
       expect(client.credentials?).to be_true
     end
     it "returns false if any credentials are missing" do
-      client = Twitter::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT')
+      client = TwitterAPI::Client.new(:consumer_key => 'CK', :consumer_secret => 'CS', :oauth_token => 'OT')
       expect(client.credentials?).to be_false
     end
   end
@@ -131,11 +131,11 @@ describe Twitter::Client do
     end
     it "catches Faraday errors" do
       subject.stub!(:connection).and_raise(Faraday::Error::ClientError.new("Oops"))
-      expect{subject.send(:request, :get, "/path")}.to raise_error Twitter::Error::ClientError
+      expect{subject.send(:request, :get, "/path")}.to raise_error TwitterAPI::Error::ClientError
     end
     it "catches MultiJson::DecodeError errors" do
       subject.stub!(:connection).and_raise(MultiJson::DecodeError.new("unexpected token", [], "<!DOCTYPE html>"))
-      expect{subject.send(:request, :get, "/path")}.to raise_error Twitter::Error::DecodeError
+      expect{subject.send(:request, :get, "/path")}.to raise_error TwitterAPI::Error::DecodeError
     end
   end
 

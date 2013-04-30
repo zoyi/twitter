@@ -5,16 +5,16 @@ require 'twitter/error/forbidden'
 require 'twitter/relationship'
 require 'twitter/user'
 
-module Twitter
+module TwitterAPI
   module API
     module FriendsAndFollowers
-      include Twitter::API::Utils
+      include TwitterAPI::API::Utils
 
       # @see https://dev.twitter.com/docs/api/1.1/get/friends/ids
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Cursor]
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [TwitterAPI::Cursor]
       # @overload friend_ids(options={})
       #   Returns an array of numeric IDs for every user the authenticated user is following
       #
@@ -25,7 +25,7 @@ module Twitter
       # @overload friend_ids(user, options={})
       #   Returns an array of numeric IDs for every user the specified user is following
       #
-      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @example Return @sferik's friends' IDs
@@ -38,8 +38,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/followers/ids
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Cursor]
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [TwitterAPI::Cursor]
       # @overload follower_ids(options={})
       #   Returns an array of numeric IDs for every user following the authenticated user
       #
@@ -50,7 +50,7 @@ module Twitter
       # @overload follower_ids(user, options={})
       #   Returns an array of numeric IDs for every user following the specified user
       #
-      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @example Return @sferik's followers' IDs
@@ -65,21 +65,21 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/lookup
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::User>] The requested users.
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<TwitterAPI::User>] The requested users.
       # @overload friendships(*users)
-      #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
+      #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @example Return extended information for @sferik and @pengwynn
       #     Twitter.friendships('sferik', 'pengwynn')
       #     Twitter.friendships('sferik', 14100886)   # Same as above
       #     Twitter.friendships(7505382, 14100886)    # Same as above
       # @overload friendships(*users, options)
-      #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
+      #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def friendships(*args)
-        arguments = Twitter::API::Arguments.new(args)
+        arguments = TwitterAPI::API::Arguments.new(args)
         merge_users!(arguments.options, arguments)
-        objects_from_response(Twitter::User, :get, "/1.1/friendships/lookup.json", arguments.options)
+        objects_from_response(TwitterAPI::User, :get, "/1.1/friendships/lookup.json", arguments.options)
       end
 
       # Returns an array of numeric IDs for every user who has a pending request to follow the authenticating user
@@ -87,8 +87,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/incoming
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Cursor]
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [TwitterAPI::Cursor]
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @example Return an array of numeric IDs for every user who has a pending request to follow the authenticating user
@@ -102,8 +102,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/outgoing
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Cursor]
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [TwitterAPI::Cursor]
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @example Return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
@@ -117,18 +117,18 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/friendships/create
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::User>] The followed users.
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<TwitterAPI::User>] The followed users.
       # @overload follow(*users)
-      #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
+      #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @example Follow @sferik
       #     Twitter.follow('sferik')
       # @overload follow(*users, options)
-      #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
+      #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean] :follow (false) Enable notifications for the target user.
       def follow(*args)
-        arguments = Twitter::API::Arguments.new(args)
+        arguments = TwitterAPI::API::Arguments.new(args)
         # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
         # so only send follow if it's true
         arguments.options[:follow] = true if !!arguments.options.delete(:follow)
@@ -147,25 +147,25 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/friendships/create
       # @rate_limited No
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::User>] The followed users.
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<TwitterAPI::User>] The followed users.
       # @overload follow!(*users)
-      #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
+      #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @example Follow @sferik
       #     Twitter.follow!('sferik')
       # @overload follow!(*users, options)
-      #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
+      #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Boolean] :follow (false) Enable notifications for the target user.
       def follow!(*args)
-        arguments = Twitter::API::Arguments.new(args)
+        arguments = TwitterAPI::API::Arguments.new(args)
         # Twitter always turns on notifications if the "follow" option is present, even if it's set to false
         # so only send follow if it's true
         arguments.options[:follow] = true if !!arguments.options.delete(:follow)
         arguments.flatten.threaded_map do |user|
           begin
-            object_from_response(Twitter::User, :post, "/1.1/friendships/create.json", merge_user(arguments.options, user))
-          rescue Twitter::Error::Forbidden
+            object_from_response(TwitterAPI::User, :post, "/1.1/friendships/create.json", merge_user(arguments.options, user))
+          rescue TwitterAPI::Error::Forbidden
             # This error will be raised if the user doesn't have permission to
             # follow list_member, for whatever reason.
           end
@@ -178,14 +178,14 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/friendships/destroy
       # @rate_limited No
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Array<Twitter::User>] The unfollowed users.
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [Array<TwitterAPI::User>] The unfollowed users.
       # @overload unfollow(*users)
-      #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
+      #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @example Unfollow @sferik
       #     Twitter.unfollow('sferik')
       # @overload unfollow(*users, options)
-      #   @param users [Array<Integer, String, Twitter::User>, Set<Integer, String, Twitter::User>] An array of Twitter user IDs, screen names, or objects.
+      #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       def unfollow(*args)
         threaded_user_objects_from_response(:post, "/1.1/friendships/destroy.json", args)
@@ -197,9 +197,9 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/post/friendships/update
       # @rate_limited No
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Relationship]
-      # @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [TwitterAPI::Relationship]
+      # @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :device Enable/disable device notifications from the target user.
       # @option options [Boolean] :retweets Enable/disable retweets from the target user.
@@ -207,7 +207,7 @@ module Twitter
       #   Twitter.friendship_update('sferik', :device => true, :retweets => true)
       def friendship_update(user, options={})
         merge_user!(options, user)
-        object_from_response(Twitter::Relationship, :post, "/1.1/friendships/update.json", options)
+        object_from_response(TwitterAPI::Relationship, :post, "/1.1/friendships/update.json", options)
       end
 
       # Returns detailed information about the relationship between two users
@@ -215,10 +215,10 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/show
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Relationship]
-      # @param source [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the source user.
-      # @param target [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the target user.
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [TwitterAPI::Relationship]
+      # @param source [Integer, String, TwitterAPI::User] The Twitter user ID, screen name, or object of the source user.
+      # @param target [Integer, String, TwitterAPI::User] The Twitter user ID, screen name, or object of the target user.
       # @param options [Hash] A customizable set of options.
       # @example Return the relationship between @sferik and @pengwynn
       #   Twitter.friendship('sferik', 'pengwynn')
@@ -229,7 +229,7 @@ module Twitter
         options[:source_id] = options.delete(:source_user_id) unless options[:source_user_id].nil?
         merge_user!(options, target, "target")
         options[:target_id] = options.delete(:target_user_id) unless options[:target_user_id].nil?
-        object_from_response(Twitter::Relationship, :get, "/1.1/friendships/show.json", options)
+        object_from_response(TwitterAPI::Relationship, :get, "/1.1/friendships/show.json", options)
       end
       alias friendship_show friendship
       alias relationship friendship
@@ -239,10 +239,10 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/show
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Boolean] true if user_a follows user_b, otherwise false.
-      # @param source [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the source user.
-      # @param target [Integer, String, Twitter::User] The Twitter user ID, screen name, or object of the target user.
+      # @param source [Integer, String, TwitterAPI::User] The Twitter user ID, screen name, or object of the source user.
+      # @param target [Integer, String, TwitterAPI::User] The Twitter user ID, screen name, or object of the target user.
       # @param options [Hash] A customizable set of options.
       # @example Return true if @sferik follows @pengwynn
       #   Twitter.friendship?('sferik', 'pengwynn')
@@ -257,8 +257,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/followers/list
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Cursor]
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [TwitterAPI::Cursor]
       # @overload followers(options={})
       #   Returns an array of numeric IDs for every user the authenticated user is following
       #
@@ -271,7 +271,7 @@ module Twitter
       # @overload followers(user, options={})
       #   Returns an array of numeric IDs for every user the specified user is following
       #
-      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
@@ -280,7 +280,7 @@ module Twitter
       #   Twitter.followers('sferik')
       #   Twitter.followers(7505382)    # Same as above
       def followers(*args)
-        cursor_from_response_with_user(:users, Twitter::User, :get, "/1.1/followers/list.json", args, :followers)
+        cursor_from_response_with_user(:users, TwitterAPI::User, :get, "/1.1/followers/list.json", args, :followers)
       end
 
       # Returns a cursored collection of user objects for every user the specified user is following (otherwise known as their "friends").
@@ -288,8 +288,8 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/show
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
-      # @return [Twitter::Cursor]
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @return [TwitterAPI::Cursor]
       # @overload friends(options={})
       #   Returns an array of numeric IDs for every user the authenticated user is following
       #
@@ -302,7 +302,7 @@ module Twitter
       # @overload friends(user, options={})
       #   Returns an array of numeric IDs for every user the specified user is following
       #
-      #   @param user [Integer, String, Twitter::User] A Twitter user ID, screen name, or object.
+      #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
@@ -311,7 +311,7 @@ module Twitter
       #   Twitter.friends('sferik')
       #   Twitter.friends(7505382)    # Same as above
       def friends(*args)
-        cursor_from_response_with_user(:users, Twitter::User, :get, "/1.1/friends/list.json", args, :friends)
+        cursor_from_response_with_user(:users, TwitterAPI::User, :get, "/1.1/friends/list.json", args, :friends)
       end
       alias following friends
 
@@ -320,7 +320,7 @@ module Twitter
       # @see https://dev.twitter.com/docs/api/1.1/get/friendships/no_retweets/ids
       # @rate_limited Yes
       # @authentication Requires user context
-      # @raise [Twitter::Error::Unauthorized] Error raised when supplied user credentials are not valid.
+      # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<Integer>]
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :stringify_ids Many programming environments will not consume our ids due to their size. Provide this option to have ids returned as strings instead. Read more about Twitter IDs, JSON and Snowflake.

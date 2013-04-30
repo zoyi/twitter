@@ -1,8 +1,8 @@
 require 'twitter/geo'
 
-module Twitter
+module TwitterAPI
   class Geo
-    class Point < Twitter::Geo
+    class Point < TwitterAPI::Geo
 
       # @return [Integer]
       def latitude

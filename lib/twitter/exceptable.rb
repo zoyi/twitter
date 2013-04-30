@@ -1,4 +1,4 @@
-module Twitter
+module TwitterAPI
   module Exceptable
 
   private
