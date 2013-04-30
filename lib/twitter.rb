@@ -55,4 +55,4 @@ module TwitterAPI
   end
 end
 
-Twitter.setup
+TwitterAPI.setup
