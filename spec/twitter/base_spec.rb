@@ -4,13 +4,13 @@ describe TwitterAPI::Base do
 
   context "identity map enabled" do
     before do
-      Twitter.identity_map = TwitterAPI::IdentityMap
+      TwitterAPI.identity_map = TwitterAPI::IdentityMap
       object = TwitterAPI::Base.new(:id => 1)
       @base = TwitterAPI::Base.store(object)
     end
 
     after do
-      Twitter.identity_map = false
+      TwitterAPI.identity_map = false
     end
 
     describe ".identity_map" do
@@ -76,10 +76,10 @@ describe TwitterAPI::Base do
 
   context "identity map disabled" do
     before(:all) do
-      Twitter.identity_map = false
+      TwitterAPI.identity_map = false
     end
     after(:all) do
-      Twitter.identity_map = TwitterAPI::IdentityMap
+      TwitterAPI.identity_map = TwitterAPI::IdentityMap
     end
 
     describe ".identity_map" do
@@ -103,7 +103,7 @@ describe TwitterAPI::Base do
     describe ".fetch_or_new" do
       it "creates new objects" do
         expect(TwitterAPI::Base.fetch_or_new(:id => 2)).to be
-        expect(Twitter.identity_map).to be_false
+        expect(TwitterAPI.identity_map).to be_false
       end
     end
   end

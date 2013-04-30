@@ -15,7 +15,7 @@ module TwitterAPI
       # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [TwitterAPI::Configuration] Twitter's configuration.
       # @example Return the current configuration used by Twitter
-      #   Twitter.configuration
+      #   TwitterAPI.configuration
       def configuration(options={})
         object_from_response(TwitterAPI::Configuration, :get, "/1.1/help/configuration.json", options)
       end
@@ -28,7 +28,7 @@ module TwitterAPI
       # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [Array<TwitterAPI::Language>]
       # @example Return the list of languages Twitter supports
-      #   Twitter.languages
+      #   TwitterAPI.languages
       def languages(options={})
         objects_from_response(TwitterAPI::Language, :get, "/1.1/help/languages.json", options)
       end
@@ -41,7 +41,7 @@ module TwitterAPI
       # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [String]
       # @example Return {https://twitter.com/privacy Twitter's Privacy Policy}
-      #   Twitter.privacy
+      #   TwitterAPI.privacy
       def privacy(options={})
         get("/1.1/help/privacy.json", options)[:body][:privacy]
       end
@@ -54,7 +54,7 @@ module TwitterAPI
       # @raise [TwitterAPI::Error::Unauthorized] Error raised when supplied user credentials are not valid.
       # @return [String]
       # @example Return {https://twitter.com/tos Twitter's Terms of Service}
-      #   Twitter.tos
+      #   TwitterAPI.tos
       def tos(options={})
         get("/1.1/help/tos.json", options)[:body][:tos]
       end

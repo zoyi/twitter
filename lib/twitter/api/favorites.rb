@@ -22,7 +22,7 @@ module TwitterAPI
       #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       #   @example Return the 20 most recent favorite Tweets for the authenticating user
-      #     Twitter.favorites
+      #     TwitterAPI.favorites
       # @overload favorites(user, options={})
       #   Returns the 20 most recent favorite Tweets for the specified user
       #
@@ -31,7 +31,7 @@ module TwitterAPI
       #   @option options [Integer] :count Specifies the number of records to retrieve. Must be less than or equal to 100.
       #   @option options [Integer] :since_id Returns results with an ID greater than (that is, more recent than) the specified ID.
       #   @example Return the 20 most recent favorite Tweets for @sferik
-      #     Twitter.favorites('sferik')
+      #     TwitterAPI.favorites('sferik')
       def favorites(*args)
         arguments = TwitterAPI::API::Arguments.new(args)
         if user = arguments.pop
@@ -51,7 +51,7 @@ module TwitterAPI
       # @overload unfavorite(*ids)
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @example Un-favorite the tweet with the ID 25938088801
-      #     Twitter.unfavorite(25938088801)
+      #     TwitterAPI.unfavorite(25938088801)
       # @overload unfavorite(*ids, options)
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
@@ -72,7 +72,7 @@ module TwitterAPI
       # @overload favorite(*ids)
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @example Favorite the Tweet with the ID 25938088801
-      #     Twitter.favorite(25938088801)
+      #     TwitterAPI.favorite(25938088801)
       # @overload favorite(*ids, options)
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.
@@ -102,7 +102,7 @@ module TwitterAPI
       # @overload favorite(*ids)
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @example Favorite the Tweet with the ID 25938088801
-      #     Twitter.favorite(25938088801)
+      #     TwitterAPI.favorite(25938088801)
       # @overload favorite(*ids, options)
       #   @param ids [Array<Integer>, Set<Integer>] An array of Tweet IDs.
       #   @param options [Hash] A customizable set of options.

@@ -37,7 +37,7 @@ First, [register your application with Twitter][register].
 Then, copy and paste in your OAuth data.
 
 ```ruby
-Twitter.configure do |config|
+TwitterAPI.configure do |config|
   config.consumer_key = YOUR_CONSUMER_KEY
   config.consumer_secret = YOUR_CONSUMER_SECRET
   config.oauth_token = YOUR_OAUTH_TOKEN
@@ -47,7 +47,7 @@ end
 
 That's it! You're ready to Tweet:
 ```ruby
-Twitter.update("I'm tweeting with @gem!")
+TwitterAPI.update("I'm tweeting with @gem!")
 ```
 
 For more examples of how to use the gem, read the [documentation][] or see [Usage Examples][] below.
@@ -101,10 +101,10 @@ error:
     Bad Authentication data
 
 Applications that make requests on behalf of a single Twitter user can pass
-global configuration options as a block to the `Twitter.configure` method.
+global configuration options as a block to the `TwitterAPI.configure` method.
 
 ```ruby
-Twitter.configure do |config|
+TwitterAPI.configure do |config|
   config.consumer_key = YOUR_CONSUMER_KEY
   config.consumer_secret = YOUR_CONSUMER_SECRET
   config.oauth_token = YOUR_OAUTH_TOKEN
@@ -122,7 +122,7 @@ Alternately, you can set the following environment variables:
 After configuration, requests can be made like so:
 
 ```ruby
-Twitter.update("I'm tweeting with @gem!")
+TwitterAPI.update("I'm tweeting with @gem!")
 ```
 
 #### Thread Safety
@@ -132,7 +132,7 @@ avoid using global configuration. In this case, you may still specify the
 could go in `config/initializers/twitter.rb`.)
 
 ```ruby
-Twitter.configure do |config|
+TwitterAPI.configure do |config|
   config.consumer_key = YOUR_CONSUMER_KEY
   config.consumer_secret = YOUR_CONSUMER_SECRET
 end
@@ -179,13 +179,13 @@ The Faraday middleware stack is fully configurable and is exposed as a
 `Faraday::Builder` object. You can modify the default middleware in-place:
 
 ```ruby
-Twitter.middleware.insert_after TwitterAPI::Response::RaiseError, CustomMiddleware
+TwitterAPI.middleware.insert_after TwitterAPI::Response::RaiseError, CustomMiddleware
 ```
 
 A custom adapter may be set as part of a custom middleware stack:
 
 ```ruby
-Twitter.middleware = Faraday::Builder.new(
+TwitterAPI.middleware = Faraday::Builder.new(
   &Proc.new do |builder|
     # Specify a middleware stack here
     builder.adapter :some_other_adapter
@@ -200,73 +200,73 @@ href="#configuration">configuration</a> above.
 **Tweet (as the authenticated user)**
 
 ```ruby
-Twitter.update("I'm tweeting with @gem!")
+TwitterAPI.update("I'm tweeting with @gem!")
 ```
 **Follow a user (by screen name or user ID)**
 
 ```ruby
-Twitter.follow("gem")
-Twitter.follow(213747670)
+TwitterAPI.follow("gem")
+TwitterAPI.follow(213747670)
 ```
 **Fetch a user (by screen name or user ID)**
 
 ```ruby
-Twitter.user("gem")
-Twitter.user(213747670)
+TwitterAPI.user("gem")
+TwitterAPI.user(213747670)
 ```
 **Fetch a cursored list of followers with profile details (by screen name or user ID, or by implict authenticated user)**
 
 ```ruby
-Twitter.followers("gem")
-Twitter.followers(213747670)
-Twitter.followers
+TwitterAPI.followers("gem")
+TwitterAPI.followers(213747670)
+TwitterAPI.followers
 ```
 **Fetch a cursored list of friends with profile details (by screen name or user ID, or by implict authenticated user)**
 
 ```ruby
-Twitter.friends("gem")
-Twitter.friends(213747670)
-Twitter.friends
+TwitterAPI.friends("gem")
+TwitterAPI.friends(213747670)
+TwitterAPI.friends
 ```
 
 **Fetch a collection of user_ids that the currently authenticated user does not want to receive retweets from**
 
 ```ruby
-Twitter.no_retweet_ids
+TwitterAPI.no_retweet_ids
 ````
 
 **Fetch the timeline of Tweets by a user**
 
 ```ruby
-Twitter.user_timeline("gem")
-Twitter.user_timeline(213747670)
+TwitterAPI.user_timeline("gem")
+TwitterAPI.user_timeline(213747670)
 ```
 **Fetch the timeline of Tweets from the authenticated user's home page**
 
 ```ruby
-Twitter.home_timeline
+TwitterAPI.home_timeline
 ```
 **Fetch the timeline of Tweets mentioning the authenticated user**
 
 ```ruby
-Twitter.mentions_timeline
+TwitterAPI.mentions_timeline
 ```
 **Fetch a particular Tweet by ID**
 
 ```ruby
-Twitter.status(27558893223)
+TwitterAPI.status(27558893223)
 ```
 **Find the 3 most recent marriage proposals to @justinbieber**
 
 ```ruby
-Twitter.search("to:justinbieber marry me", :count => 3, :result_type => "recent").results.map do |status|
+TwitterAPI.search("to:justinbieber marry me", :count => 3, :result_type => "recent").results.map do |status|
   "#{status.from_user}: #{status.text}"
 end
 ```
 **Find a Japanese-language Tweet tagged #ruby (excluding retweets)**
 
 ```ruby
-Twitter.search("#ruby -rt", :lang => "ja", :count => 1).results.first.text
+TwitterAPI.search("#ruby -rt", :lang => "ja", :count => 1).results.first.text
 ```
 For more usage examples, please see the full [documentation][].
 
@@ -385,7 +385,7 @@ MAX_ATTEMPTS = 3
 num_attempts = 0
 begin
   num_attempts += 1
-  retweets = Twitter.retweeted_by_user("sferik")
+  retweets = TwitterAPI.retweeted_by_user("sferik")
 rescue TwitterAPI::Error::TooManyRequests => error
   if num_attempts <= MAX_ATTEMPTS
     # NOTE: Your process could go to sleep for up to 15 minutes but if you
@@ -443,7 +443,7 @@ to enable this feature, you can use the [default identity map][default] or
 [write a custom identity map][custom].
 
 ```ruby
-Twitter.identity_map = TwitterAPI::IdentityMap
+TwitterAPI.identity_map = TwitterAPI::IdentityMap
 ```
 
 [disabled]: https://github.com/sferik/twitter/commit/c6c5960bea998abdc3e82cbb8dd68766a2df52e1

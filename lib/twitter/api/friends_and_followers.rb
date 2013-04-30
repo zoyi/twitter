@@ -21,7 +21,7 @@ module TwitterAPI
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @example Return the authenticated user's friends' IDs
-      #     Twitter.friend_ids
+      #     TwitterAPI.friend_ids
       # @overload friend_ids(user, options={})
       #   Returns an array of numeric IDs for every user the specified user is following
       #
@@ -29,8 +29,8 @@ module TwitterAPI
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @example Return @sferik's friends' IDs
-      #     Twitter.friend_ids('sferik')
-      #     Twitter.friend_ids(7505382)  # Same as above
+      #     TwitterAPI.friend_ids('sferik')
+      #     TwitterAPI.friend_ids(7505382)  # Same as above
       def friend_ids(*args)
         cursor_from_response_with_user(:ids, nil, :get, "/1.1/friends/ids.json", args, :friend_ids)
       end
@@ -46,7 +46,7 @@ module TwitterAPI
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @example Return the authenticated user's followers' IDs
-      #     Twitter.follower_ids
+      #     TwitterAPI.follower_ids
       # @overload follower_ids(user, options={})
       #   Returns an array of numeric IDs for every user following the specified user
       #
@@ -54,8 +54,8 @@ module TwitterAPI
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. This is recommended for users who are following many users. Provide a value of -1 to begin paging. Provide values as returned in the response body's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @example Return @sferik's followers' IDs
-      #     Twitter.follower_ids('sferik')
-      #     Twitter.follower_ids(7505382)  # Same as above
+      #     TwitterAPI.follower_ids('sferik')
+      #     TwitterAPI.follower_ids(7505382)  # Same as above
       def follower_ids(*args)
         cursor_from_response_with_user(:ids, nil, :get, "/1.1/followers/ids.json", args, :follower_ids)
       end
@@ -70,9 +70,9 @@ module TwitterAPI
       # @overload friendships(*users)
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @example Return extended information for @sferik and @pengwynn
-      #     Twitter.friendships('sferik', 'pengwynn')
-      #     Twitter.friendships('sferik', 14100886)   # Same as above
-      #     Twitter.friendships(7505382, 14100886)    # Same as above
+      #     TwitterAPI.friendships('sferik', 'pengwynn')
+      #     TwitterAPI.friendships('sferik', 14100886)   # Same as above
+      #     TwitterAPI.friendships(7505382, 14100886)    # Same as above
       # @overload friendships(*users, options)
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
@@ -92,7 +92,7 @@ module TwitterAPI
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @example Return an array of numeric IDs for every user who has a pending request to follow the authenticating user
-      #   Twitter.friendships_incoming
+      #   TwitterAPI.friendships_incoming
       def friendships_incoming(options={})
         cursor_from_response(:ids, nil, :get, "/1.1/friendships/incoming.json", options, :friendships_incoming)
       end
@@ -107,7 +107,7 @@ module TwitterAPI
       # @param options [Hash] A customizable set of options.
       # @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       # @example Return an array of numeric IDs for every protected user for whom the authenticating user has a pending follow request
-      #   Twitter.friendships_outgoing
+      #   TwitterAPI.friendships_outgoing
       def friendships_outgoing(options={})
         cursor_from_response(:ids, nil, :get, "/1.1/friendships/outgoing.json", options, :friendships_outgoing)
       end
@@ -122,7 +122,7 @@ module TwitterAPI
       # @overload follow(*users)
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @example Follow @sferik
-      #     Twitter.follow('sferik')
+      #     TwitterAPI.follow('sferik')
       # @overload follow(*users, options)
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
@@ -152,7 +152,7 @@ module TwitterAPI
       # @overload follow!(*users)
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @example Follow @sferik
-      #     Twitter.follow!('sferik')
+      #     TwitterAPI.follow!('sferik')
       # @overload follow!(*users, options)
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
@@ -183,7 +183,7 @@ module TwitterAPI
       # @overload unfollow(*users)
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @example Unfollow @sferik
-      #     Twitter.unfollow('sferik')
+      #     TwitterAPI.unfollow('sferik')
       # @overload unfollow(*users, options)
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
@@ -204,7 +204,7 @@ module TwitterAPI
       # @option options [Boolean] :device Enable/disable device notifications from the target user.
       # @option options [Boolean] :retweets Enable/disable retweets from the target user.
       # @example Enable rewteets and devise notifications for @sferik
-      #   Twitter.friendship_update('sferik', :device => true, :retweets => true)
+      #   TwitterAPI.friendship_update('sferik', :device => true, :retweets => true)
       def friendship_update(user, options={})
         merge_user!(options, user)
         object_from_response(TwitterAPI::Relationship, :post, "/1.1/friendships/update.json", options)
@@ -221,9 +221,9 @@ module TwitterAPI
       # @param target [Integer, String, TwitterAPI::User] The Twitter user ID, screen name, or object of the target user.
       # @param options [Hash] A customizable set of options.
       # @example Return the relationship between @sferik and @pengwynn
-      #   Twitter.friendship('sferik', 'pengwynn')
-      #   Twitter.friendship('sferik', 14100886)   # Same as above
-      #   Twitter.friendship(7505382, 14100886)    # Same as above
+      #   TwitterAPI.friendship('sferik', 'pengwynn')
+      #   TwitterAPI.friendship('sferik', 14100886)   # Same as above
+      #   TwitterAPI.friendship(7505382, 14100886)    # Same as above
       def friendship(source, target, options={})
         merge_user!(options, source, "source")
         options[:source_id] = options.delete(:source_user_id) unless options[:source_user_id].nil?
@@ -245,9 +245,9 @@ module TwitterAPI
       # @param target [Integer, String, TwitterAPI::User] The Twitter user ID, screen name, or object of the target user.
       # @param options [Hash] A customizable set of options.
       # @example Return true if @sferik follows @pengwynn
-      #   Twitter.friendship?('sferik', 'pengwynn')
-      #   Twitter.friendship?('sferik', 14100886)   # Same as above
-      #   Twitter.friendship?(7505382, 14100886)    # Same as above
+      #   TwitterAPI.friendship?('sferik', 'pengwynn')
+      #   TwitterAPI.friendship?('sferik', 14100886)   # Same as above
+      #   TwitterAPI.friendship?(7505382, 14100886)    # Same as above
       def friendship?(source, target, options={})
         friendship(source, target, options).source.following?
       end
@@ -267,7 +267,7 @@ module TwitterAPI
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       #   @example Return the authenticated user's friends' IDs
-      #     Twitter.followers
+      #     TwitterAPI.followers
       # @overload followers(user, options={})
       #   Returns an array of numeric IDs for every user the specified user is following
       #
@@ -277,8 +277,8 @@ module TwitterAPI
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       # @example Return the cursored collection of users following @sferik
-      #   Twitter.followers('sferik')
-      #   Twitter.followers(7505382)    # Same as above
+      #   TwitterAPI.followers('sferik')
+      #   TwitterAPI.followers(7505382)    # Same as above
       def followers(*args)
         cursor_from_response_with_user(:users, TwitterAPI::User, :get, "/1.1/followers/list.json", args, :followers)
       end
@@ -298,7 +298,7 @@ module TwitterAPI
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       #   @example Return the authenticated user's friends' IDs
-      #     Twitter.friends
+      #     TwitterAPI.friends
       # @overload friends(user, options={})
       #   Returns an array of numeric IDs for every user the specified user is following
       #
@@ -308,8 +308,8 @@ module TwitterAPI
       #   @option options [Boolean, String, Integer] :skip_status Do not include contributee's Tweets when set to true, 't' or 1.
       #   @option options [Boolean, String, Integer] :include_user_entities The user entities node will be disincluded when set to false.
       # @example Return the cursored collection of users @sferik is following
-      #   Twitter.friends('sferik')
-      #   Twitter.friends(7505382)    # Same as above
+      #   TwitterAPI.friends('sferik')
+      #   TwitterAPI.friends(7505382)    # Same as above
       def friends(*args)
         cursor_from_response_with_user(:users, TwitterAPI::User, :get, "/1.1/friends/list.json", args, :friends)
       end
@@ -325,7 +325,7 @@ module TwitterAPI
       # @param options [Hash] A customizable set of options.
       # @option options [Boolean] :stringify_ids Many programming environments will not consume our ids due to their size. Provide this option to have ids returned as strings instead. Read more about Twitter IDs, JSON and Snowflake.
       # @example Enable rewteets and devise notifications for @sferik
-      #   Twitter.no_retweet_ids
+      #   TwitterAPI.no_retweet_ids
       def no_retweet_ids(options={})
         get("/1.1/friendships/no_retweets/ids.json", options)[:body].map(&:to_i)
       end

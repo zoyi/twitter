@@ -22,8 +22,8 @@ module TwitterAPI
 
     # return [TwitterAPI::IdentityMap]
     def self.identity_map
-      return unless Twitter.identity_map
-      @identity_map = Twitter.identity_map.new unless defined?(@identity_map) && @identity_map.class == Twitter.identity_map
+      return unless TwitterAPI.identity_map
+      @identity_map = TwitterAPI.identity_map.new unless defined?(@identity_map) && @identity_map.class == TwitterAPI.identity_map
       @identity_map
     end
 

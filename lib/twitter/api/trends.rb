@@ -18,7 +18,7 @@ module TwitterAPI
       # @option options [String] :exclude Setting this equal to 'hashtags' will remove all hashtags from the trends list.
       # @return [Array<TwitterAPI::Trend>]
       # @example Return the top 10 trending topics for San Francisco
-      #   Twitter.trends(2487956)
+      #   TwitterAPI.trends(2487956)
       def trends(id=1, options={})
         options[:id] = id
         response = get("/1.1/trends/place.json", options)
@@ -36,7 +36,7 @@ module TwitterAPI
       # @param options [Hash] A customizable set of options.
       # @return [Array<TwitterAPI::Place>]
       # @example Return the locations that Twitter has trending topic information for
-      #   Twitter.trends_available
+      #   TwitterAPI.trends_available
       def trends_available(options={})
         objects_from_response(TwitterAPI::Place, :get, "/1.1/trends/available.json", options)
       end
@@ -53,7 +53,7 @@ module TwitterAPI
       # @option options [Float] :long If provided with a :lat option the available trend locations will be sorted by distance, nearest to furthest, to the co-ordinate pair. The valid ranges for longitude are -180.0 to +180.0 (East is positive) inclusive.
       # @return [Array<TwitterAPI::Place>]
       # @example Return the locations that Twitter has trending topic information for
-      #   Twitter.trends_closest
+      #   TwitterAPI.trends_closest
       def trends_closest(options={})
         objects_from_response(TwitterAPI::Place, :get, "/1.1/trends/closest.json", options)
       end

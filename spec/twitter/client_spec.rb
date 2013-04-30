@@ -9,7 +9,7 @@ describe TwitterAPI::Client do
   context "with module configuration" do
 
     before do
-      Twitter.configure do |config|
+      TwitterAPI.configure do |config|
         TwitterAPI::Configurable.keys.each do |key|
           config.send("#{key}=", key)
         end
@@ -17,7 +17,7 @@ describe TwitterAPI::Client do
     end
 
     after do
-      Twitter.reset!
+      TwitterAPI.reset!
     end
 
     it "inherits the module configuration" do

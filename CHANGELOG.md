@@ -17,7 +17,7 @@
 4.4.3
 -----
 * [Add `TwitterAPI::API::Arguments` class; remove `extract_options!` helper method](https://github.com/sferik/twitter/commit/65972c599ced8da27fbbfa72aeead92464355583)
-* [Ensure credentials set via `Twitter.configure` are of a valid type](https://github.com/sferik/twitter/commit/fc152dbe56b99639896bcaaf7fe158659e8c50b9)
+* [Ensure credentials set via `TwitterAPI.configure` are of a valid type](https://github.com/sferik/twitter/commit/fc152dbe56b99639896bcaaf7fe158659e8c50b9)
 * [Delegate `TwitterAPI::Tweet#profile_image_url` and `TwitterAPI::Tweet#profile_image_url_https` to `TwitterAPI::Tweet#user`](https://github.com/sferik/twitter/commit/7bd6f8f589a91a8c82363d07da77ec012890c6cb)
 * [Fix timeout bug; lock `faraday` dependency to version < 0.10](https://github.com/sferik/twitter/commit/01e2781e4a78137ca4e5e6d3e4faf2552ee9ec76)
 
@@ -227,7 +227,7 @@
 * [Replace the `TwitterAPI::Search` class with `TwitterAPI::Client#search`](https://github.com/sferik/twitter/commit/591cbf1be86707584de0548365cc71c795683b2d)
 * [Add object equivalence](https://github.com/sferik/twitter/commit/a52e0d2296db55fc0d1dcc184fb6eacba6183642)
 * [`TwitterAPI::Client#totals` has been removed. Use `TwitterAPI::Client#user` instead]((https://github.com/sferik/twitter/commit/1ad0928a6232324072e8d960242a99949016cf50)
-* [`Twitter.faraday_options` has been renamed to `Twitter.connection_options`](https://github.com/sferik/twitter/commit/221cb650ba126effb3447a3b9e0d58da2bdb507e)
+* [`TwitterAPI.faraday_options` has been renamed to `TwitterAPI.connection_options`](https://github.com/sferik/twitter/commit/221cb650ba126effb3447a3b9e0d58da2bdb507e)
 * [All error classes have been moved inside the TwitterAPI::Error namespace](https://github.com/sferik/twitter/commit/1245742f030415ebf5f1054e85fe93bca85cddfb)
 * [Remove support for XML response format](https://github.com/sferik/twitter/commit/e60b9cac2b14d11dcc703c87b9a74328c173f35a)
 * [Remove all deprecated methods](https://github.com/sferik/twitter/commit/5f59f1935d31df2756fd5bc43ae0f7e57879a5a4)
@@ -305,7 +305,7 @@
 1.1.2
 -----
 * [Opt-in for testing with rubygems-test](https://github.com/sferik/twitter/commit/7d92afc138cac1b751b17682fd166b2603f804c6)
-* [Add support for `Twitter.respond_to?`](https://github.com/sferik/twitter/commit/ce64c7818f9b62cf91f1fa5dc2e76a9d4205cd2e) ([@fernandezpablo](https://twitter.com/fernandezpablo))
+* [Add support for `TwitterAPI.respond_to?`](https://github.com/sferik/twitter/commit/ce64c7818f9b62cf91f1fa5dc2e76a9d4205cd2e) ([@fernandezpablo](https://twitter.com/fernandezpablo))
 
 1.1.1
 -----
@@ -334,7 +334,7 @@
 * [Expose a property in EnhanceYourCalm for HTTP header "Retry-After"](https://github.com/sferik/twitter/commit/7ab91f9d26351f52d3c803bb191d33bdacff5094) ([@duylam](https://twitter.com/duylam))
 * [Merge `Base`, `Geo`, `Trends`, and `Unauthenticated` into `Client` class](https://github.com/sferik/twitter/commit/eb53872249634ee1f0179982b091a1a0fd9c0973) ([@laserlemon](https://twitter.com/laserlemon))
 * [Move examples into README](https://github.com/sferik/twitter/commit/96600cb5611965788c41b3788668188d37e16803)
-* [Rename `Twitter.scheme` to `Twitter.protocol`](https://github.com/sferik/twitter/commit/512fcdfc22b796d39dd07c2dcc712aa48131d7c6)
+* [Rename `TwitterAPI.scheme` to `TwitterAPI.protocol`](https://github.com/sferik/twitter/commit/512fcdfc22b796d39dd07c2dcc712aa48131d7c6)
 * [Map access key/secret names to SimpleOAuth correctly](https://github.com/sferik/twitter/commit/9fa5be3a9e0b7f7dcb4046314d8c6bc41f4f063d)
 * [Improved error handling by separating HTTP 4xx errors from HTTP 5xx errors, so HTTP 4xx errors can be parsed first](https://github.com/sferik/twitter/commit/f26e7875980a7b2b16285c31198601b92ac5cbb6)
 * [Add tests for XML response format](https://github.com/sferik/twitter/commit/54c4b36b8f9a5a0ad7c741e53409a03a7ddaade7)
@@ -346,7 +346,7 @@
 * [Enable SSL by default (add option to disable SSL)](https://github.com/sferik/twitter/commit/c4f8907d6595f93d63bc84d6575920a14774e656)
 * [Use HTTP DELETE method instead of HTTP POST for all destructive methods](https://github.com/sferik/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f)
 * [Change the method signature for `Base#users` and `Base#friendships` to accept an `Array` and an options `Hash`](https://github.com/sferik/twitter/commit/0bfbf6352de9bdda2b93ed053a358c0cb8e78e8f)
-* [Add `Twitter.profile_image` method](https://github.com/sferik/twitter/commit/e6645022aefdc11860fe88b45725a08bb24adf55) ([@ratherchad](https://twitter.com/ratherchad))
+* [Add `TwitterAPI.profile_image` method](https://github.com/sferik/twitter/commit/e6645022aefdc11860fe88b45725a08bb24adf55) ([@ratherchad](https://twitter.com/ratherchad))
 * [Improve website style](https://github.com/sferik/twitter/commit/4cdf4e76b6d71d5d4760b46d1a894c00929c0ba3) ([@rodrigo3n](https://twitter.com/rodrigo3n))
 * [Make request format configurable](https://github.com/sferik/twitter/commit/d35d6447b25fa84447ae97558958431fa9f6aa29)
 
@@ -355,7 +355,7 @@
 * [Rename parameters to be less confusing](https://github.com/rorra/twitter/commit/cd7ea8de6663d6ed5ea22b590d39adc72646fc1e) ([@rorra](https://twitter.com/rorra))
 * [Update `user` method to match the Twitter API docs](https://github.com/sferik/twitter/commit/cb31e4a26b20d93006d568fab50ccce5c4d1626f) ([@nerdEd](https://twitter.com/nerdEd))
 * [Add aliases for search methods](https://github.com/sferik/twitter/commit/05dd3e5a058ef69f874cfe33ae35b01f574e549b)
-* [Add `Twitter.user_agent` and `Twitter.user_agent=` methods](https://github.com/sferik/twitter/commit/0fc68f1c52e3b754194fe8a9cfbd9d4499eacbe1)
+* [Add `TwitterAPI.user_agent` and `TwitterAPI.user_agent=` methods](https://github.com/sferik/twitter/commit/0fc68f1c52e3b754194fe8a9cfbd9d4499eacbe1)
 * [Add `Search#locale` method](https://github.com/sferik/twitter/commit/584bcf9eb896530a87e4122fb1a020c35744f0cf)
 
 0.9.11
@@ -450,7 +450,7 @@
 
 0.8.3
 -----
-* [Add `Twitter.list_timeline` method](https://github.com/sferik/twitter/commit/aed3a298b613a508bb9caf93afc7f12c50626ad7) ([@spastorino](https://twitter.com/spastorino))
+* [Add `TwitterAPI.list_timeline` method](https://github.com/sferik/twitter/commit/aed3a298b613a508bb9caf93afc7f12c50626ad7) ([@spastorino](https://twitter.com/spastorino))
 
 0.8.2
 -----
@@ -458,7 +458,7 @@
 
 0.8.1
 -----
-* [Add `Twitter.timeline` method](https://github.com/sferik/twitter/commit/dc26a0c9b5a6a98aec4ca9c0a48333e665c9bf18)
+* [Add `TwitterAPI.timeline` method](https://github.com/sferik/twitter/commit/dc26a0c9b5a6a98aec4ca9c0a48333e665c9bf18)
 
 0.8.0
 -----
@@ -553,7 +553,7 @@
 -----
 * [Add `query` parameter to `user` method](https://github.com/sferik/twitter/commit/33ae7dbd7593235efb8ea1df13638891b621244f)
 * [Add `ssl` optional parameter to use HTTPS instead of HTTP for `HTTPAuth`](https://github.com/sferik/twitter/commit/f46cdf9ce957b03539bd4dc76a83ce439535d349)
-* [Add `Twitter.status`, `Twitter.friend_ids`, and `Twitter.follower_ids` methods](https://github.com/sferik/twitter/commit/55813617c5b4cf672800bf7f9e7473904e3c3194)
+* [Add `TwitterAPI.status`, `TwitterAPI.friend_ids`, and `TwitterAPI.follower_ids` methods](https://github.com/sferik/twitter/commit/55813617c5b4cf672800bf7f9e7473904e3c3194)
 
 0.6.5
 -----
@@ -565,7 +565,7 @@
 
 0.6.3
 -----
-* [Add `Twitter.user` method](https://github.com/sferik/twitter/commit/cb46975eaa8aa7e02ad798ba8b7b62017f15604c)
+* [Add `TwitterAPI.user` method](https://github.com/sferik/twitter/commit/cb46975eaa8aa7e02ad798ba8b7b62017f15604c)
 
 0.6.2
 -----

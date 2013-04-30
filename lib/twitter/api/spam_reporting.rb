@@ -16,8 +16,8 @@ module TwitterAPI
       # @overload report_spam(*users)
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @example Report @spam for spam
-      #     Twitter.report_spam("spam")
-      #     Twitter.report_spam(14589771) # Same as above
+      #     TwitterAPI.report_spam("spam")
+      #     TwitterAPI.report_spam(14589771) # Same as above
       # @overload report_spam(*users, options)
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.

@@ -10,11 +10,11 @@ describe TwitterAPI::Identity do
 
   context "identity map enabled" do
     before do
-      Twitter.identity_map = TwitterAPI::IdentityMap
+      TwitterAPI.identity_map = TwitterAPI::IdentityMap
     end
 
     after do
-      Twitter.identity_map = false
+      TwitterAPI.identity_map = false
     end
 
     describe ".fetch" do

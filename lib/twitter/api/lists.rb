@@ -24,13 +24,13 @@ module TwitterAPI
       # @overload lists(options={})
       #   @param options [Hash] A customizable set of options.
       #   @example Return all lists the authenticating user subscribes to
-      #     Twitter.lists
+      #     TwitterAPI.lists
       # @overload lists(user, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
       #   @example Return all lists that @sferik subscribes to
-      #     Twitter.lists('sferik')
-      #     Twitter.lists(7505382)
+      #     TwitterAPI.lists('sferik')
+      #     TwitterAPI.lists(7505382)
       def lists(*args)
         objects_from_response_with_user(TwitterAPI::List, :get, "/1.1/lists/list.json", args)
       end
@@ -50,8 +50,8 @@ module TwitterAPI
       #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       #   @option options [Integer] :count The number of results to retrieve.
       #   @example Show tweet timeline for members of the authenticated user's "presidents" list
-      #     Twitter.list_timeline('presidents')
-      #     Twitter.list_timeline(8863586)
+      #     TwitterAPI.list_timeline('presidents')
+      #     TwitterAPI.list_timeline(8863586)
       # @overload list_timeline(user, list, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
@@ -60,10 +60,10 @@ module TwitterAPI
       #   @option options [Integer] :max_id Returns results with an ID less than (that is, older than) or equal to the specified ID.
       #   @option options [Integer] :count The number of results to retrieve.
       #   @example Show tweet timeline for members of @sferik's "presidents" list
-      #     Twitter.list_timeline('sferik', 'presidents')
-      #     Twitter.list_timeline('sferik', 8863586)
-      #     Twitter.list_timeline(7505382, 'presidents')
-      #     Twitter.list_timeline(7505382, 8863586)
+      #     TwitterAPI.list_timeline('sferik', 'presidents')
+      #     TwitterAPI.list_timeline('sferik', 8863586)
+      #     TwitterAPI.list_timeline(7505382, 'presidents')
+      #     TwitterAPI.list_timeline(7505382, 8863586)
       def list_timeline(*args)
         arguments = TwitterAPI::API::Arguments.new(args)
         merge_list!(arguments.options, arguments.pop)
@@ -83,19 +83,19 @@ module TwitterAPI
       #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
       #   @param options [Hash] A customizable set of options.
       #   @example Remove @BarackObama from the authenticated user's "presidents" list
-      #     Twitter.list_remove_member('presidents', 813286)
-      #     Twitter.list_remove_member('presidents', 'BarackObama')
-      #     Twitter.list_remove_member(8863586, 'BarackObama')
+      #     TwitterAPI.list_remove_member('presidents', 813286)
+      #     TwitterAPI.list_remove_member('presidents', 'BarackObama')
+      #     TwitterAPI.list_remove_member(8863586, 'BarackObama')
       # @overload list_remove_member(user, list, user_to_remove, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param user_to_remove [Integer, String] The user id or screen name of the list member to remove.
       #   @param options [Hash] A customizable set of options.
       #   @example Remove @BarackObama from @sferik's "presidents" list
-      #     Twitter.list_remove_member('sferik', 'presidents', 813286)
-      #     Twitter.list_remove_member('sferik', 'presidents', 'BarackObama')
-      #     Twitter.list_remove_member('sferik', 8863586, 'BarackObama')
-      #     Twitter.list_remove_member(7505382, 'presidents', 813286)
+      #     TwitterAPI.list_remove_member('sferik', 'presidents', 813286)
+      #     TwitterAPI.list_remove_member('sferik', 'presidents', 'BarackObama')
+      #     TwitterAPI.list_remove_member('sferik', 8863586, 'BarackObama')
+      #     TwitterAPI.list_remove_member(7505382, 'presidents', 813286)
       def list_remove_member(*args)
         list_from_response_with_user(:post, "/1.1/lists/members/destroy.json", args)
       end
@@ -112,15 +112,15 @@ module TwitterAPI
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :filter_to_owned_lists When set to true, t or 1, will return just lists the authenticating user owns, and the user represented by user_id or screen_name is a member of.
       #   @example List the lists the authenticated user has been added to
-      #     Twitter.memberships
+      #     TwitterAPI.memberships
       # @overload memberships(user, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @option options [Boolean, String, Integer] :filter_to_owned_lists When set to true, t or 1, will return just lists the authenticating user owns, and the user represented by user_id or screen_name is a member of.
       #   @example List the lists that @sferik has been added to
-      #     Twitter.memberships('sferik')
-      #     Twitter.memberships(7505382)
+      #     TwitterAPI.memberships('sferik')
+      #     TwitterAPI.memberships(7505382)
       def memberships(*args)
         cursor_from_response_with_user(:lists, TwitterAPI::List, :get, "/1.1/lists/memberships.json", args, :memberships)
       end
@@ -137,17 +137,17 @@ module TwitterAPI
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @example Return the subscribers of the authenticated user's "presidents" list
-      #     Twitter.list_subscribers('presidents')
-      #     Twitter.list_subscribers(8863586)
+      #     TwitterAPI.list_subscribers('presidents')
+      #     TwitterAPI.list_subscribers(8863586)
       # @overload list_subscribers(user, list, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @example Return the subscribers of @sferik's "presidents" list
-      #     Twitter.list_subscribers('sferik', 'presidents')
-      #     Twitter.list_subscribers('sferik', 8863586)
-      #     Twitter.list_subscribers(7505382, 'presidents')
+      #     TwitterAPI.list_subscribers('sferik', 'presidents')
+      #     TwitterAPI.list_subscribers('sferik', 8863586)
+      #     TwitterAPI.list_subscribers(7505382, 'presidents')
       def list_subscribers(*args)
         cursor_from_response_with_list(:get, "/1.1/lists/subscribers.json", args, :list_subscribers)
       end
@@ -163,16 +163,16 @@ module TwitterAPI
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param options [Hash] A customizable set of options.
       #   @example Subscribe to the authenticated user's "presidents" list
-      #     Twitter.list_subscribe('presidents')
-      #     Twitter.list_subscribe(8863586)
+      #     TwitterAPI.list_subscribe('presidents')
+      #     TwitterAPI.list_subscribe(8863586)
       # @overload list_subscribe(user, list, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param options [Hash] A customizable set of options.
       #   @example Subscribe to @sferik's "presidents" list
-      #     Twitter.list_subscribe('sferik', 'presidents')
-      #     Twitter.list_subscribe('sferik', 8863586)
-      #     Twitter.list_subscribe(7505382, 'presidents')
+      #     TwitterAPI.list_subscribe('sferik', 'presidents')
+      #     TwitterAPI.list_subscribe('sferik', 8863586)
+      #     TwitterAPI.list_subscribe(7505382, 'presidents')
       def list_subscribe(*args)
         list_from_response(:post, "/1.1/lists/subscribers/create.json", args)
       end
@@ -189,19 +189,19 @@ module TwitterAPI
       #   @param user_to_check [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
       #   @example Check if @BarackObama is a subscriber of the authenticated user's "presidents" list
-      #     Twitter.list_subscriber?('presidents', 813286)
-      #     Twitter.list_subscriber?(8863586, 813286)
-      #     Twitter.list_subscriber?('presidents', 'BarackObama')
+      #     TwitterAPI.list_subscriber?('presidents', 813286)
+      #     TwitterAPI.list_subscriber?(8863586, 813286)
+      #     TwitterAPI.list_subscriber?('presidents', 'BarackObama')
       # @overload list_subscriber?(user, list, user_to_check, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param user_to_check [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
       #   @example Check if @BarackObama is a subscriber of @sferik's "presidents" list
-      #     Twitter.list_subscriber?('sferik', 'presidents', 813286)
-      #     Twitter.list_subscriber?('sferik', 8863586, 813286)
-      #     Twitter.list_subscriber?(7505382, 'presidents', 813286)
-      #     Twitter.list_subscriber?('sferik', 'presidents', 'BarackObama')
+      #     TwitterAPI.list_subscriber?('sferik', 'presidents', 813286)
+      #     TwitterAPI.list_subscriber?('sferik', 8863586, 813286)
+      #     TwitterAPI.list_subscriber?(7505382, 'presidents', 813286)
+      #     TwitterAPI.list_subscriber?('sferik', 'presidents', 'BarackObama')
       # @return [Boolean] true if user is a subscriber of the specified list, otherwise false.
       def list_subscriber?(*args)
         list_user?(:get, "/1.1/lists/subscribers/show.json", args)
@@ -218,16 +218,16 @@ module TwitterAPI
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param options [Hash] A customizable set of options.
       #   @example Unsubscribe from the authenticated user's "presidents" list
-      #     Twitter.list_unsubscribe('presidents')
-      #     Twitter.list_unsubscribe(8863586)
+      #     TwitterAPI.list_unsubscribe('presidents')
+      #     TwitterAPI.list_unsubscribe(8863586)
       # @overload list_unsubscribe(user, list, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param options [Hash] A customizable set of options.
       #   @example Unsubscribe from @sferik's "presidents" list
-      #     Twitter.list_unsubscribe('sferik', 'presidents')
-      #     Twitter.list_unsubscribe('sferik', 8863586)
-      #     Twitter.list_unsubscribe(7505382, 'presidents')
+      #     TwitterAPI.list_unsubscribe('sferik', 'presidents')
+      #     TwitterAPI.list_unsubscribe('sferik', 8863586)
+      #     TwitterAPI.list_unsubscribe(7505382, 'presidents')
       def list_unsubscribe(*args)
         list_from_response(:post, "/1.1/lists/subscribers/destroy.json", args)
       end
@@ -245,22 +245,22 @@ module TwitterAPI
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @example Add @BarackObama and @pengwynn to the authenticated user's "presidents" list
-      #     Twitter.list_add_members('presidents', ['BarackObama', 'pengwynn'])
-      #     Twitter.list_add_members('presidents', [813286, 18755393])
-      #     Twitter.list_add_members(8863586, ['BarackObama', 'pengwynn'])
-      #     Twitter.list_add_members(8863586, [813286, 18755393])
+      #     TwitterAPI.list_add_members('presidents', ['BarackObama', 'pengwynn'])
+      #     TwitterAPI.list_add_members('presidents', [813286, 18755393])
+      #     TwitterAPI.list_add_members(8863586, ['BarackObama', 'pengwynn'])
+      #     TwitterAPI.list_add_members(8863586, [813286, 18755393])
       # @overload list_add_members(user, list, users, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @example Add @BarackObama and @pengwynn to @sferik's "presidents" list
-      #     Twitter.list_add_members('sferik', 'presidents', ['BarackObama', 'pengwynn'])
-      #     Twitter.list_add_members('sferik', 'presidents', [813286, 18755393])
-      #     Twitter.list_add_members(7505382, 'presidents', ['BarackObama', 'pengwynn'])
-      #     Twitter.list_add_members(7505382, 'presidents', [813286, 18755393])
-      #     Twitter.list_add_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
-      #     Twitter.list_add_members(7505382, 8863586, [813286, 18755393])
+      #     TwitterAPI.list_add_members('sferik', 'presidents', ['BarackObama', 'pengwynn'])
+      #     TwitterAPI.list_add_members('sferik', 'presidents', [813286, 18755393])
+      #     TwitterAPI.list_add_members(7505382, 'presidents', ['BarackObama', 'pengwynn'])
+      #     TwitterAPI.list_add_members(7505382, 'presidents', [813286, 18755393])
+      #     TwitterAPI.list_add_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
+      #     TwitterAPI.list_add_members(7505382, 8863586, [813286, 18755393])
       def list_add_members(*args)
         list_from_response_with_users(:post, "/1.1/lists/members/create_all.json", args)
       end
@@ -277,17 +277,17 @@ module TwitterAPI
       #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
       #   @param options [Hash] A customizable set of options.
       #   @example Check if @BarackObama is a member of the authenticated user's "presidents" list
-      #     Twitter.list_member?('presidents', 813286)
-      #     Twitter.list_member?(8863586, 'BarackObama')
+      #     TwitterAPI.list_member?('presidents', 813286)
+      #     TwitterAPI.list_member?(8863586, 'BarackObama')
       # @overload list_member?(user, list, user_to_check, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param user_to_check [Integer, String] The user ID or screen name of the list member.
       #   @param options [Hash] A customizable set of options.
       #   @example Check if @BarackObama is a member of @sferik's "presidents" list
-      #     Twitter.list_member?('sferik', 'presidents', 813286)
-      #     Twitter.list_member?('sferik', 8863586, 'BarackObama')
-      #     Twitter.list_member?(7505382, 'presidents', 813286)
+      #     TwitterAPI.list_member?('sferik', 'presidents', 813286)
+      #     TwitterAPI.list_member?('sferik', 8863586, 'BarackObama')
+      #     TwitterAPI.list_member?(7505382, 'presidents', 813286)
       def list_member?(*args)
         list_user?(:get, "/1.1/lists/members/show.json", args)
       end
@@ -304,18 +304,18 @@ module TwitterAPI
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @example Return the members of the authenticated user's "presidents" list
-      #     Twitter.list_members('presidents')
-      #     Twitter.list_members(8863586)
+      #     TwitterAPI.list_members('presidents')
+      #     TwitterAPI.list_members(8863586)
       # @overload list_members(user, list, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @example Return the members of @sferik's "presidents" list
-      #     Twitter.list_members('sferik', 'presidents')
-      #     Twitter.list_members('sferik', 8863586)
-      #     Twitter.list_members(7505382, 'presidents')
-      #     Twitter.list_members(7505382, 8863586)
+      #     TwitterAPI.list_members('sferik', 'presidents')
+      #     TwitterAPI.list_members('sferik', 8863586)
+      #     TwitterAPI.list_members(7505382, 'presidents')
+      #     TwitterAPI.list_members(7505382, 8863586)
       def list_members(*args)
         cursor_from_response_with_list(:get, "/1.1/lists/members.json", args, :list_members)
       end
@@ -333,18 +333,18 @@ module TwitterAPI
       #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
       #   @param options [Hash] A customizable set of options.
       #   @example Add @BarackObama to the authenticated user's "presidents" list
-      #     Twitter.list_add_member('presidents', 813286)
-      #     Twitter.list_add_member(8863586, 813286)
+      #     TwitterAPI.list_add_member('presidents', 813286)
+      #     TwitterAPI.list_add_member(8863586, 813286)
       # @overload list_add_member(user, list, user_to_add, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param user_to_add [Integer, String] The user id or screen name to add to the list.
       #   @param options [Hash] A customizable set of options.
       #   @example Add @BarackObama to @sferik's "presidents" list
-      #     Twitter.list_add_member('sferik', 'presidents', 813286)
-      #     Twitter.list_add_member('sferik', 8863586, 813286)
-      #     Twitter.list_add_member(7505382, 'presidents', 813286)
-      #     Twitter.list_add_member(7505382, 8863586, 813286)
+      #     TwitterAPI.list_add_member('sferik', 'presidents', 813286)
+      #     TwitterAPI.list_add_member('sferik', 8863586, 813286)
+      #     TwitterAPI.list_add_member(7505382, 'presidents', 813286)
+      #     TwitterAPI.list_add_member(7505382, 8863586, 813286)
       def list_add_member(*args)
         list_from_response_with_user(:post, "/1.1/lists/members/create.json", args)
       end
@@ -361,17 +361,17 @@ module TwitterAPI
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param options [Hash] A customizable set of options.
       #   @example Delete the authenticated user's "presidents" list
-      #     Twitter.list_destroy('presidents')
-      #     Twitter.list_destroy(8863586)
+      #     TwitterAPI.list_destroy('presidents')
+      #     TwitterAPI.list_destroy(8863586)
       # @overload list_destroy(user, list, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param options [Hash] A customizable set of options.
       #   @example Delete @sferik's "presidents" list
-      #     Twitter.list_destroy('sferik', 'presidents')
-      #     Twitter.list_destroy('sferik', 8863586)
-      #     Twitter.list_destroy(7505382, 'presidents')
-      #     Twitter.list_destroy(7505382, 8863586)
+      #     TwitterAPI.list_destroy('sferik', 'presidents')
+      #     TwitterAPI.list_destroy('sferik', 8863586)
+      #     TwitterAPI.list_destroy(7505382, 'presidents')
+      #     TwitterAPI.list_destroy(7505382, 8863586)
       def list_destroy(*args)
         list_from_response(:post, "/1.1/lists/destroy.json", args)
       end
@@ -389,8 +389,8 @@ module TwitterAPI
       #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       #   @option options [String] :description The description to give the list.
       #   @example Update the authenticated user's "presidents" list to have the description "Presidents of the United States of America"
-      #     Twitter.list_update('presidents', :description => "Presidents of the United States of America")
-      #     Twitter.list_update(8863586, :description => "Presidents of the United States of America")
+      #     TwitterAPI.list_update('presidents', :description => "Presidents of the United States of America")
+      #     TwitterAPI.list_update(8863586, :description => "Presidents of the United States of America")
       # @overload list_update(user, list, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
@@ -398,10 +398,10 @@ module TwitterAPI
       #   @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       #   @option options [String] :description The description to give the list.
       #   @example Update the @sferik's "presidents" list to have the description "Presidents of the United States of America"
-      #     Twitter.list_update('sferik', 'presidents', :description => "Presidents of the United States of America")
-      #     Twitter.list_update(7505382, 'presidents', :description => "Presidents of the United States of America")
-      #     Twitter.list_update('sferik', 8863586, :description => "Presidents of the United States of America")
-      #     Twitter.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
+      #     TwitterAPI.list_update('sferik', 'presidents', :description => "Presidents of the United States of America")
+      #     TwitterAPI.list_update(7505382, 'presidents', :description => "Presidents of the United States of America")
+      #     TwitterAPI.list_update('sferik', 8863586, :description => "Presidents of the United States of America")
+      #     TwitterAPI.list_update(7505382, 8863586, :description => "Presidents of the United States of America")
       def list_update(*args)
         list_from_response(:post, "/1.1/lists/update.json", args)
       end
@@ -419,7 +419,7 @@ module TwitterAPI
       # @option options [String] :mode ('public') Whether your list is public or private. Values can be 'public' or 'private'.
       # @option options [String] :description The description to give the list.
       # @example Create a list named 'presidents'
-      #   Twitter.list_create('presidents')
+      #   TwitterAPI.list_create('presidents')
       def list_create(name, options={})
         object_from_response(TwitterAPI::List, :post, "/1.1/lists/create.json", options.merge(:name => name))
       end
@@ -436,17 +436,17 @@ module TwitterAPI
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param options [Hash] A customizable set of options.
       #   @example Show the authenticated user's "presidents" list
-      #     Twitter.list('presidents')
-      #     Twitter.list(8863586)
+      #     TwitterAPI.list('presidents')
+      #     TwitterAPI.list(8863586)
       # @overload list(user, list, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param options [Hash] A customizable set of options.
       #   @example Show @sferik's "presidents" list
-      #     Twitter.list('sferik', 'presidents')
-      #     Twitter.list('sferik', 8863586)
-      #     Twitter.list(7505382, 'presidents')
-      #     Twitter.list(7505382, 8863586)
+      #     TwitterAPI.list('sferik', 'presidents')
+      #     TwitterAPI.list('sferik', 8863586)
+      #     TwitterAPI.list(7505382, 'presidents')
+      #     TwitterAPI.list(7505382, 8863586)
       def list(*args)
         list_from_response(:get, "/1.1/lists/show.json", args)
       end
@@ -462,14 +462,14 @@ module TwitterAPI
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @example List the lists the authenticated user follows
-      #     Twitter.subscriptions
+      #     TwitterAPI.subscriptions
       # @overload subscriptions(user, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param options [Hash] A customizable set of options.
       #   @option options [Integer] :cursor (-1) Breaks the results into pages. Provide values as returned in the response objects's next_cursor and previous_cursor attributes to page back and forth in the list.
       #   @example List the lists that @sferik follows
-      #     Twitter.subscriptions('sferik')
-      #     Twitter.subscriptions(7505382)
+      #     TwitterAPI.subscriptions('sferik')
+      #     TwitterAPI.subscriptions(7505382)
       def subscriptions(*args)
         cursor_from_response_with_user(:lists, TwitterAPI::List, :get, "/1.1/lists/subscriptions.json", args, :subscriptions)
       end
@@ -486,22 +486,22 @@ module TwitterAPI
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @example Remove @BarackObama and @pengwynn from the authenticated user's "presidents" list
-      #     Twitter.list_remove_members('presidents', ['BarackObama', 'pengwynn'])
-      #     Twitter.list_remove_members('presidents', [813286, 18755393])
-      #     Twitter.list_remove_members(8863586, ['BarackObama', 'pengwynn'])
-      #     Twitter.list_remove_members(8863586, [813286, 18755393])
+      #     TwitterAPI.list_remove_members('presidents', ['BarackObama', 'pengwynn'])
+      #     TwitterAPI.list_remove_members('presidents', [813286, 18755393])
+      #     TwitterAPI.list_remove_members(8863586, ['BarackObama', 'pengwynn'])
+      #     TwitterAPI.list_remove_members(8863586, [813286, 18755393])
       # @overload list_remove_members(user, list, users, options={})
       #   @param user [Integer, String, TwitterAPI::User] A Twitter user ID, screen name, or object.
       #   @param list [Integer, String, TwitterAPI::List] A Twitter list ID, slug, or object.
       #   @param users [Array<Integer, String, TwitterAPI::User>, Set<Integer, String, TwitterAPI::User>] An array of Twitter user IDs, screen names, or objects.
       #   @param options [Hash] A customizable set of options.
       #   @example Remove @BarackObama and @pengwynn from @sferik's "presidents" list
-      #     Twitter.list_remove_members('sferik', 'presidents', ['BarackObama', 'pengwynn'])
-      #     Twitter.list_remove_members('sferik', 'presidents', [813286, 18755393])
-      #     Twitter.list_remove_members(7505382, 'presidents', ['BarackObama', 'pengwynn'])
-      #     Twitter.list_remove_members(7505382, 'presidents', [813286, 18755393])
-      #     Twitter.list_remove_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
-      #     Twitter.list_remove_members(7505382, 8863586, [813286, 18755393])
+      #     TwitterAPI.list_remove_members('sferik', 'presidents', ['BarackObama', 'pengwynn'])
+      #     TwitterAPI.list_remove_members('sferik', 'presidents', [813286, 18755393])
+      #     TwitterAPI.list_remove_members(7505382, 'presidents', ['BarackObama', 'pengwynn'])
+      #     TwitterAPI.list_remove_members(7505382, 'presidents', [813286, 18755393])
+      #     TwitterAPI.list_remove_members(7505382, 8863586, ['BarackObama', 'pengwynn'])
+      #     TwitterAPI.list_remove_members(7505382, 8863586, [813286, 18755393])
       def list_remove_members(*args)
         list_from_response_with_users(:post, "/1.1/lists/members/destroy_all.json", args)
       end

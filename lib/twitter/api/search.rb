@@ -27,7 +27,7 @@ module TwitterAPI
       # @option options [Boolean, String, Integer] :include_entities The tweet entities node will be disincluded when set to false.
       # @return [TwitterAPI::SearchResults] Return tweets that match a specified query with search metadata
       # @example Return tweets related to twitter
-      #   Twitter.search('twitter')
+      #   TwitterAPI.search('twitter')
       def search(q, options={})
         object_from_response(TwitterAPI::SearchResults, :get, "/1.1/search/tweets.json", options.merge(:q => q))
       end

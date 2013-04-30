@@ -50,7 +50,7 @@ module TwitterAPI
     # @return [TwitterAPI::Client]
     def initialize(options={})
       TwitterAPI::Configurable.keys.each do |key|
-        instance_variable_set(:"@#{key}", options[key] || Twitter.instance_variable_get(:"@#{key}"))
+        instance_variable_set(:"@#{key}", options[key] || TwitterAPI.instance_variable_get(:"@#{key}"))
       end
     end
 
